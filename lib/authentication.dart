@@ -45,10 +45,13 @@ class _MyHomePageState extends State<MyHomePage> {
   String phoneNumber;
   String _smsVerificationCode;
   FirebaseAuth _auth = FirebaseAuth.instance;
-  _verificationComplete(AuthCredential authCredential, BuildContext context) {
-    _auth.signInWithCredential(authCredential).then((authResult) {
+
+  Future<void> _verificationComplete(
+      AuthCredential authCredential, BuildContext context) async {
+    await _auth.signInWithCredential(authCredential).then((authResult) {
       final snackBar =
           SnackBar(content: Text("Success!!! UUID is: " + authResult.user.uid));
+      // Navigator.pushReplacement(context, newRoute)
       Scaffold.of(context).showSnackBar(snackBar);
     });
   }
@@ -58,7 +61,8 @@ class _MyHomePageState extends State<MyHomePage> {
     _smsVerificationCode = verificationId;
   }
 
-  _verificationFailed(AuthException authException, BuildContext context) {
+  Future<void> _verificationFailed(
+      AuthException authException, BuildContext context) async {
     final snackBar = SnackBar(
         content:
             Text("Exception!! message:" + authException.message.toString()));

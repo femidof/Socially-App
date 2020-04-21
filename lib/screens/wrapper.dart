@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:loginscreen/models/user.dart';
+import 'package:socially/homepage.dart';
+import 'package:socially/models/user.dart';
 import 'package:provider/provider.dart';
+import 'package:socially/services/auth.dart';
 import 'authenticate/authenticate.dart';
-import 'home/home.dart';
+// import 'home/home.dart';
 
 class Wrapper extends StatelessWidget {
   @override
@@ -11,9 +13,9 @@ class Wrapper extends StatelessWidget {
 
     //return Home or Authenticate
     if (user == null) {
-      return Authenticate();
+      return AuthService().handleAuth();
     } else {
-      return Home();
+      return MyHome();
     }
     // return Authenticate();
   }

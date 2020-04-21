@@ -5,15 +5,15 @@ import 'package:socially/loginPage.dart';
 import 'package:socially/Animations/fadeAnimation.dart';
 import 'package:page_transition/page_transition.dart';
 
-void main() =>
-    runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
+// void main() =>
+//     runApp(MaterialApp(debugShowCheckedModeBanner: false, home: HomePage()));
 
-class HomePage extends StatefulWidget {
+class GetStarted extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _GetStartedState createState() => _GetStartedState();
 }
 
-class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+class _GetStartedState extends State<GetStarted> with TickerProviderStateMixin {
   AnimationController _scaleController;
   AnimationController _scale2Controller;
   AnimationController _widthController;

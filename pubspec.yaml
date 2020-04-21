@@ -20,7 +20,7 @@ dependencies:
   flutter:
     sdk: flutter
   geolocator: ^5.3.1
-  firebase_core: any
+  # firebase_core: any
   cloud_firestore: any
   firebase_auth:
   flutter_sms: ^2.0.1+2
