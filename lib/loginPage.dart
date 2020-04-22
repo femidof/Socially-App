@@ -12,10 +12,13 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final formKey = new GlobalKey<FormState>();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  AuthService authService = AuthService();
+//  final FirebaseAuth _auth = FirebaseAuth.instance;
+  // AuthService authService = AuthService();
   String phoneNumber, verificationId, smsCode;
+  //  String phoneNumber, verificationId, smsCode;
+
   bool codeSent = false;
+  // bool codeSent = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,9 +111,9 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {
                           // codeSent = codeSent;
                           codeSent
-                              ? authService.signInWithOTP(
-                                  smsCode, verificationId)
-                              : verifyWithPhoneNumber(phoneNumber);
+                              ? AuthService().signInWithOTP(
+                                  smsCode, verificationId, context)
+                              : verifyPhone(phoneNumber);
                         });
                         print("hello");
                       },
@@ -143,36 +146,33 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<void> verifyWithPhoneNumber(String phoneNumber) async {
-    final PhoneVerificationCompleted verified =
-        (AuthCredential authResult) async {
-      await authService.signIn(authResult);
+  Future<void> verifyPhone(phoneNumber) async {
+    final PhoneVerificationCompleted verified = (AuthCredential authResult) {
+      AuthService().signIn(authResult, context);
     };
+
     final PhoneVerificationFailed verificationfailed =
-        (AuthException authException) async {
-      print("${authException.message}");
+        (AuthException authException) {
+      print('${authException.message}');
     };
+
     final PhoneCodeSent smsSent = (String verId, [int forceResend]) {
       this.verificationId = verId;
-      // setState if in stateful widget
-      this.codeSent = true;
+      setState(() {
+        this.codeSent = true;
+      });
     };
+
     final PhoneCodeAutoRetrievalTimeout autoTimeout = (String verId) {
       this.verificationId = verId;
     };
-    try {
-      // AuthResult result =
-      await _auth.verifyPhoneNumber(
+
+    await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phoneNumber,
-        timeout: const Duration(seconds: 60),
+        timeout: const Duration(seconds: 5),
         verificationCompleted: verified,
         verificationFailed: verificationfailed,
         codeSent: smsSent,
-        codeAutoRetrievalTimeout: autoTimeout,
-      );
-    } catch (e) {
-      print(e.toString());
-      return null;
-    }
+        codeAutoRetrievalTimeout: autoTimeout);
   }
 }

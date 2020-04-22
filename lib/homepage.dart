@@ -1,8 +1,10 @@
-import 'dart:async';
+
 
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:socially/main.dart';
 
 class MyHome extends StatefulWidget {
   @override
@@ -49,8 +51,11 @@ class _MyHomeState extends State<MyHome> {
                   child: Text('Logout'),
                   onPressed: () {
                     FirebaseAuth.instance.signOut().then((action) {
-                      Navigator.of(context)
-                          .pushReplacementNamed('/landingpage');
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: BaseStart()));
                     }).catchError((e) {
                       print(e);
                     });

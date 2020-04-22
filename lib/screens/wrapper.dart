@@ -3,7 +3,6 @@ import 'package:socially/homepage.dart';
 import 'package:socially/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:socially/services/auth.dart';
-import 'authenticate/authenticate.dart';
 // import 'home/home.dart';
 
 class Wrapper extends StatelessWidget {
