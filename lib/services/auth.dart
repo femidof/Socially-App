@@ -13,7 +13,8 @@ class AuthService {
           if (snapshot.hasData) {
             return MyHome();
           } else {
-            return GetStarted();
+            // return GetStarted();
+            return MyHome();
           }
         });
   }
@@ -30,7 +31,7 @@ class AuthService {
         PageTransition(type: PageTransitionType.fade, child: MyHome()));
   }
 
-  signInWithOTP(smsCode, verId,context) {
+  signInWithOTP(smsCode, verId, context) {
     AuthCredential authCreds = PhoneAuthProvider.getCredential(
         verificationId: verId, smsCode: smsCode);
     signIn(authCreds, context);

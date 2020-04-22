@@ -1,3 +1,5 @@
+import 'package:country_pickers/country.dart';
+import 'package:country_pickers/country_pickers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:socially/animations/fadeAnimation.dart';
@@ -11,6 +13,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  String phonePrefix;
+  Country _selectedDialogCountry =
+      CountryPickerUtils.getCountryByPhoneCode('1');
   final formKey = new GlobalKey<FormState>();
 //  final FirebaseAuth _auth = FirebaseAuth.instance;
   // AuthService authService = AuthService();
@@ -18,6 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   //  String phoneNumber, verificationId, smsCode;
 
   bool codeSent = false;
+
   // bool codeSent = false;
   @override
   Widget build(BuildContext context) {
@@ -59,6 +65,16 @@ class _LoginPageState extends State<LoginPage> {
                         color: Colors.white),
                     child: Column(
                       children: <Widget>[
+                        ListTile(
+                          onTap: () {
+                            phonePrefix = '';
+                            _openCountryPickerDialog();
+                            setState(() {
+                              phonePrefix = "+" + phonePrefix;
+                            });
+                          },
+                          title: _buildDialogItem(_selectedDialogCountry),
+                        ),
                         Container(
                           decoration: BoxDecoration(
                               border: Border(
@@ -66,11 +82,15 @@ class _LoginPageState extends State<LoginPage> {
                           child: TextFormField(
                             keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
-                                // prefix: ,
+                                // prefix: ListTile(
+                                //   onTap: _openCountryPickerDialog,
+                                //   title:
+                                //       _buildDialogItem(_selectedDialogCountry),
+                                // ),
                                 border: InputBorder.none,
                                 hintStyle: TextStyle(
                                     color: Colors.grey.withOpacity(.8)),
-                                hintText: "Enter Your Phone number"),
+                                hintText: "Enter Yours Phone number"),
                             onChanged: (value) {
                               setState(() {
                                 this.phoneNumber = value;
@@ -108,12 +128,14 @@ class _LoginPageState extends State<LoginPage> {
                   Center(
                     child: GestureDetector(
                       onTap: () async {
+                        final mainPhoneNumber = phonePrefix + phoneNumber;
                         setState(() {
+                          print(mainPhoneNumber);
                           // codeSent = codeSent;
                           codeSent
                               ? AuthService().signInWithOTP(
                                   smsCode, verificationId, context)
-                              : verifyPhone(phoneNumber);
+                              : verifyPhone(mainPhoneNumber);
                         });
                         print("hello");
                       },
@@ -175,4 +197,37 @@ class _LoginPageState extends State<LoginPage> {
         codeSent: smsSent,
         codeAutoRetrievalTimeout: autoTimeout);
   }
+
+  Widget _buildDialogItem(Country country) => Row(
+        children: <Widget>[
+          CountryPickerUtils.getDefaultFlagImage(country),
+          SizedBox(width: 8.0),
+          Text("+${country.phoneCode}"),
+          SizedBox(width: 8.0),
+          Flexible(child: Text(country.name))
+        ],
+      );
+
+  void _openCountryPickerDialog() => showDialog(
+        context: context,
+        builder: (context) => Theme(
+          data: Theme.of(context).copyWith(primaryColor: Colors.pink),
+          child: CountryPickerDialog(
+            titlePadding: EdgeInsets.all(8.0),
+            searchCursorColor: Colors.pinkAccent,
+            searchInputDecoration: InputDecoration(hintText: 'Search...'),
+            isSearchable: true,
+            title: Text('Select your phone code'),
+            onValuePicked: (Country country) => setState(() {
+              _selectedDialogCountry = country;
+              phonePrefix = country.phoneCode;
+            }),
+            itemBuilder: _buildDialogItem,
+            priorityList: [
+              CountryPickerUtils.getCountryByIsoCode('TR'),
+              CountryPickerUtils.getCountryByIsoCode('US'),
+            ],
+          ),
+        ),
+      );
 }
