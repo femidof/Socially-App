@@ -81,7 +81,11 @@ class _LoginPageState extends State<LoginPage> {
                                   bottom: BorderSide(color: Colors.grey[300]))),
                           child: TextFormField(
                             keyboardType: TextInputType.phone,
+                            style: TextStyle(
+                              color: Colors.black,
+                            ),
                             decoration: InputDecoration(
+
                                 // prefix: ListTile(
                                 //   onTap: _openCountryPickerDialog,
                                 //   title:
@@ -100,8 +104,14 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         codeSent
                             ? Container(
-                                decoration: BoxDecoration(),
+                                decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[300]))),
                                 child: TextFormField(
+                                  style: TextStyle(
+                                    color: Colors.purple[400],
+                                  ),
                                   keyboardType: TextInputType.number,
                                   obscureText: false,
                                   onChanged: (value) {
@@ -128,13 +138,13 @@ class _LoginPageState extends State<LoginPage> {
                   Center(
                     child: GestureDetector(
                       onTap: () async {
-                        final mainPhoneNumber = phonePrefix + phoneNumber;
+                        final mainPhoneNumber = "+" + phonePrefix + phoneNumber;
                         setState(() {
                           print(mainPhoneNumber);
                           // codeSent = codeSent;
                           codeSent
-                              ? AuthService().signInWithOTP(
-                                  smsCode, verificationId, context)
+                              ? AuthService().signInWithOTP(smsCode,
+                                  verificationId, context, mainPhoneNumber)
                               : verifyPhone(mainPhoneNumber);
                         });
                         print("hello");
@@ -170,7 +180,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> verifyPhone(phoneNumber) async {
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {
-      AuthService().signIn(authResult, context);
+      AuthService().signIn(authResult, context, phoneNumber);
     };
 
     final PhoneVerificationFailed verificationfailed =
@@ -202,9 +212,20 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           CountryPickerUtils.getDefaultFlagImage(country),
           SizedBox(width: 8.0),
-          Text("+${country.phoneCode}"),
+          Text(
+            "+${country.phoneCode}",
+            style: TextStyle(
+              color: Colors.purple[200],
+            ),
+          ),
           SizedBox(width: 8.0),
-          Flexible(child: Text(country.name))
+          Flexible(
+              child: Text(
+            country.name,
+            style: TextStyle(
+              color: Colors.purple[300],
+            ),
+          ))
         ],
       );
 
@@ -214,10 +235,13 @@ class _LoginPageState extends State<LoginPage> {
           data: Theme.of(context).copyWith(primaryColor: Colors.pink),
           child: CountryPickerDialog(
             titlePadding: EdgeInsets.all(8.0),
-            searchCursorColor: Colors.pinkAccent,
+            searchCursorColor: Color.fromRGBO(3, 9, 23, 1),
             searchInputDecoration: InputDecoration(hintText: 'Search...'),
             isSearchable: true,
-            title: Text('Select your phone code'),
+            title: Text(
+              'Select your phone code',
+              style: TextStyle(color: Colors.black),
+            ),
             onValuePicked: (Country country) => setState(() {
               _selectedDialogCountry = country;
               phonePrefix = country.phoneCode;

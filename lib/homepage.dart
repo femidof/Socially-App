@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:socially/main.dart';
 import 'package:socially/screens/pages/activity_feed.dart';
-import 'package:socially/screens/pages/chat_page.dart';
+import 'package:socially/screens/pages/chat_list_screen.dart';
 import 'package:socially/screens/pages/contact_logs.dart';
 import 'package:socially/screens/pages/profile.dart';
 import 'package:socially/screens/pages/search.dart';
@@ -51,23 +51,23 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color.fromRGBO(3, 9, 23, 1),
-      body: SafeArea(
-        child: PageView(
-          children: <Widget>[
-            ChatPage(),
-            Timeline(),
-            // ContactLogs(),
-            // ActivityFeed(),
-            // Search(),
-            Upload(),
-            Profile(),
-          ],
-          controller: pageController,
-          onPageChanged: onPageChanged,
-          physics: NeverScrollableScrollPhysics(),
-        ),
+      body: PageView(
+        children: <Widget>[
+          Container(
+            child: ChatListScreen(),
+          ),
+          Timeline(),
+          // ContactLogs(),
+          // Search(),
+          Upload(),
+          ActivityFeed(),
+          Profile(),
+        ],
+        controller: pageController,
+        onPageChanged: onPageChanged,
+        physics: NeverScrollableScrollPhysics(),
       ),
-      
+
       bottomNavigationBar: CupertinoTabBar(
         border: Border(
             top: BorderSide(
@@ -78,7 +78,11 @@ class _MyHomeState extends State<MyHome> {
         inactiveColor: Colors.grey[400],
         currentIndex: pageIndex,
         onTap: (int pageIndex) {
-          pageController.jumpToPage(pageIndex);
+          pageController.animateToPage(
+            pageIndex,duration: Duration(milliseconds: 250),curve:  Curves.easeInOut,
+
+          );
+
         },
         activeColor:
             // Theme.of(context).primaryColor,
@@ -93,13 +97,13 @@ class _MyHomeState extends State<MyHome> {
             icon: Icon(Icons.whatshot),
           ),
           // BottomNavigationBarItem(
-          //   icon: Icon(Icons.notifications_active),
-          // ),
-          // BottomNavigationBarItem(
           //   icon: Icon(Icons.filter_list),
           // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.photo_camera),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.notifications_active),
           ),
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.search),

@@ -10,14 +10,17 @@ class UniversalVariables {
   static final Color separatorColor = Color(0xff272c35);
 
   static final Color gradientColorStart = Color(0xff00b6f3);
+  static final Color gradientColorStarthmm = Color(0xffA800CB);
   static final Color gradientColorEnd = Color(0xff0184dc);
+  static final Color gradientColorEndhmm = Color(0xff030917);
 
   static final Color senderColor = Color(0xff2b343b);
   static final Color receiverColor = Color(0xff1e2225);
 
   static final Gradient fabGradient = LinearGradient(
-      colors: [gradientColorStart, gradientColorEnd],
+      colors: [gradientColorStarthmm, gradientColorEndhmm],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight);
 }
 // #030917
+// A800CB

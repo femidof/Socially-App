@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:socially/models/widgets/appbar.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -8,6 +9,9 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Text("Profile");
+    return Scaffold(
+      appBar: header(context, "Profile"),
+      body: Text("Profile"),
+    );
   }
 }
