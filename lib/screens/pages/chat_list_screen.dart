@@ -14,6 +14,7 @@ class ChatListScreen extends StatefulWidget {
 // FirebaseMetho
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+final AuthService _auths = AuthService();
 
 class _ChatListScreenState extends State<ChatListScreen> {
   String currentUserId;
@@ -211,7 +212,6 @@ class NewChatButton extends StatelessWidget {
         // _auth.signOut();
         // FirebaseAuth.instance.signOut();
         await AuthService().signOut();
-        SystemNavigator.pop();
       },
       child: Container(
         decoration: BoxDecoration(

@@ -1,9 +1,12 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:socially/animations/fadeAnimation.dart';
 import 'package:flutter/material.dart';
+import 'package:socially/homepage.dart';
+import 'package:socially/models/user.dart';
 import 'package:socially/services/auth.dart';
 import 'package:socially/utils/universal_variables.dart';
 
@@ -27,6 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   // bool codeSent = false;
   @override
   Widget build(BuildContext context) {
+    final userP = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(3, 9, 23, 1),
       body: Form(
@@ -146,6 +150,14 @@ class _LoginPageState extends State<LoginPage> {
                               ? AuthService().signInWithOTP(smsCode,
                                   verificationId, context, mainPhoneNumber)
                               : verifyPhone(mainPhoneNumber);
+                          print("Works here");
+                          if (userP == null) {
+                            print("Error IN System Process");
+                            return null;
+                          } else {
+                            print("so it is here???");
+                            return MyHome();
+                          }
                         });
                         print("hello");
                       },
