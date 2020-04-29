@@ -14,6 +14,7 @@ class AuthService {
 //  Firestore firestore =
   //Handles Auth
   final usersRef = Firestore.instance.collection('user');
+
   handleAuth() {
     return StreamBuilder(
         stream: _auth.onAuthStateChanged,
@@ -91,7 +92,7 @@ class AuthService {
     print(currentUser);
     print(currentUser.username);
     userPr = currentUser;
-    Navigator.pop(context);
+    // Navigator.pop(context);
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
   }

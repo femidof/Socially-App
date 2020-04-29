@@ -1,6 +1,7 @@
 import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_pickers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:socially/animations/fadeAnimation.dart';
@@ -26,11 +27,23 @@ class _LoginPageState extends State<LoginPage> {
   //  String phoneNumber, verificationId, smsCode;
 
   bool codeSent = false;
-
+  User userP;
   // bool codeSent = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final userP = Provider.of<User>(context);
+    if (userP != null) {
+      print("so it is here???");
+      Navigator.pushReplacement(context,
+          PageTransition(type: PageTransitionType.fade, child: MyHome()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final userP = Provider.of<User>(context);
     return Scaffold(
       backgroundColor: Color.fromRGBO(3, 9, 23, 1),
       body: Form(
@@ -151,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                                   verificationId, context, mainPhoneNumber)
                               : verifyPhone(mainPhoneNumber);
                           print("Works here");
-                          if (userP == null) {
+                          if (this.userP == null) {
                             print("Error IN System Process");
                             return null;
                           } else {
