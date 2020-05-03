@@ -75,9 +75,10 @@ class AuthService {
       //get username from create account
 
       await usersRef.document(user.uid).setData({
-        "id": user.uid,
+        "uid": user.uid,
         "username": username,
-        "photoUrl": user.photoUrl,
+        "photoPhoto":
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Amateur-made_Na'vi.jpg/1200px-Amateur-made_Na'vi.jpg",
         "email": user.email,
         "displayName": user.displayName,
         "bio": "",
@@ -85,6 +86,8 @@ class AuthService {
         "state": "",
         "status": "",
         "phoneNumber": phoneNumber,
+        "post": 0,
+        "isAdmin": false
       });
       doc = await usersRef.document(user.uid).get();
     }

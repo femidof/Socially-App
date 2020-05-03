@@ -1,14 +1,25 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:emoji_picker/emoji_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:socially/components/firebase_methods.dart';
+import 'package:socially/enum/view_state.dart';
 import 'package:socially/models/message.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/appbar.dart';
 import 'package:socially/models/widgets/custom_tile.dart';
+import 'package:socially/provider/image_upload_provider.dart';
+import 'package:socially/screens/pages/callscreens/pickup/pickup_layout.dart';
+import 'package:socially/screens/pages/chatscreens/widgets/cached_images.dart';
+import 'package:socially/utils/call_utilities.dart';
+import 'package:socially/utils/permissions.dart';
 import 'package:socially/utils/universal_variables.dart';
+import 'package:socially/utils/utilities.dart';
 
 class ChatScreen extends StatefulWidget {
   final User receiver;
@@ -28,6 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
   User sender;
   String _currentUserId;
   ScrollController _listScrollController = ScrollController();
+  ImageUploadProvider _imageUploadProvider;
   bool showEmojiPicker = false;
   FocusNode textFieldFocus = FocusNode();
 
@@ -63,21 +75,39 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: UniversalVariables.gradientColorEndhmm,
-      appBar: customAppBar(context),
-      body: Column(
-        children: <Widget>[
-          Flexible(
-            child: messageList(),
-          ),
-          chatControls(),
-          showEmojiPicker
-              ? Container(
-                  child: emojiContainer(),
-                )
-              : Container(),
-        ],
+    _imageUploadProvider = Provider.of<ImageUploadProvider>(context);
+    return PickupLayout(
+      scaffold: Scaffold(
+        backgroundColor: UniversalVariables.gradientColorEndhmm,
+        appBar: customAppBar(context),
+        body: Column(
+          children: <Widget>[
+            // RaisedButton(
+            //   onPressed: () {
+            //     _imageUploadProvider.getViewState == ViewState.LOADING
+            //         ? _imageUploadProvider.setToIdle()
+            //         : _imageUploadProvider.setToLoading();
+            //   },
+            //   child: Text("Change View State"),
+            // ),
+            Flexible(
+              child: messageList(),
+            ),
+            _imageUploadProvider.getViewState == ViewState.LOADING
+                ? Container(
+                    alignment: Alignment.centerRight,
+                    margin: EdgeInsets.only(right: 15),
+                    child: CircularProgressIndicator(),
+                  )
+                : Container(),
+            chatControls(),
+            showEmojiPicker
+                ? Container(
+                    child: emojiContainer(),
+                  )
+                : Container(),
+          ],
+        ),
       ),
     );
   }
@@ -179,13 +209,22 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   getMessage(Message message) {
-    return Text(
-      message != null ? message.message : "",
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
-      ),
-    );
+    return message.type != "image"
+        ? Text(
+            message != null ? message.message : "",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+            ),
+          )
+        : message.photoUrl != null
+            ? CachedImage(
+                message.photoUrl,
+                height: 255,
+                width: 255,
+                radius: 10,
+              )
+            : Text("Image URL was null");
   }
 
   Widget receiverLayout(Message message) {
@@ -264,6 +303,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         title: "Media",
                         subtitle: "Share Photos and Video",
                         icon: Icons.image,
+                        onTap: () => pickImage(ImageSource.gallery),
                       ),
                       ModalTile(
                           title: "File",
@@ -367,7 +407,12 @@ class _ChatScreenState extends State<ChatScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   child: Icon(Icons.record_voice_over),
                 ),
-          isWriting ? Container() : Icon(Icons.camera_alt),
+          isWriting
+              ? Container()
+              : GestureDetector(
+                  onTap: () => pickImage(ImageSource.camera),
+                  child: Icon(Icons.camera_alt),
+                ),
           isWriting
               ? Container(
                   margin: EdgeInsets.only(left: 10),
@@ -384,6 +429,16 @@ class _ChatScreenState extends State<ChatScreen> {
               : Container()
         ],
       ),
+    );
+  }
+
+  pickImage(@required ImageSource source) async {
+    File selectedImage = await Utils.pickImage(source: source);
+    meth.uploadImage(
+      image: selectedImage,
+      receiverId: widget.receiver.uid,
+      senderId: _currentUserId,
+      imageUploadProvider: _imageUploadProvider,
     );
   }
 
@@ -415,15 +470,28 @@ class _ChatScreenState extends State<ChatScreen> {
         },
       ),
       centerTitle: false,
-      title: Text(
-        widget.receiver.displayName,
+      title: Row(
+        children: <Widget>[
+          CircleAvatar(),
+          SizedBox(
+            width: 10,
+          ),
+          Text(
+            widget.receiver.displayName,
+          ),
+        ],
       ),
       actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.video_call,
           ),
-          onPressed: () {},
+          onPressed: () async {
+            await Permissions.cameraAndMicrophonePermissionsGranted()
+                ? CallUtils.dial(
+                    from: sender, to: widget.receiver, context: context)
+                : {};
+          },
         ),
         IconButton(
           icon: Icon(
@@ -440,11 +508,13 @@ class ModalTile extends StatelessWidget {
   final String title;
   final String subtitle;
   final IconData icon;
+  final Function onTap;
 
   const ModalTile({
     @required this.title,
     @required this.subtitle,
     @required this.icon,
+    @required this.onTap,
   });
 
   @override
@@ -452,6 +522,7 @@ class ModalTile extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: CustomTile(
+        onTap: onTap,
         mini: false,
         leading: Container(
           margin: EdgeInsets.only(right: 10),

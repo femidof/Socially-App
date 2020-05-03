@@ -4,6 +4,7 @@ import 'package:gradient_app_bar/gradient_app_bar.dart';
 import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/custom_tile.dart';
+import 'package:socially/screens/pages/callscreens/pickup/pickup_layout.dart';
 import 'package:socially/screens/pages/chatscreens/chat_screens.dart';
 import 'package:socially/utils/universal_variables.dart';
 
@@ -85,18 +86,20 @@ class _SearchScreenState extends State<SearchScreen> {
   buildSuggestions(String query) {
     final List<User> suggestionList = query.isEmpty
         ? []
-        : userList.where((User user) {
-            String _getUsername = user.username.toLowerCase();
-            String _query = query.toLowerCase();
-            String _getName = user.displayName.toLowerCase();
-            bool matchesUsername = _getUsername.contains(_query);
-            bool matchesName = _getName.contains(_query);
+        : userList != null
+            ? userList.where((User user) {
+                String _getUsername = user.username.toLowerCase();
+                String _query = query.toLowerCase();
+                String _getName = user.displayName.toLowerCase();
+                bool matchesUsername = _getUsername.contains(_query);
+                bool matchesName = _getName.contains(_query);
 
-            return (matchesUsername || matchesName);
+                return (matchesUsername || matchesName);
 
-            // (User user) => (user.username.toLowerCase().contains(query.toLowerCase()) ||
-            //     (user.name.toLowerCase().contains(query.toLowerCase()))),
-          }).toList();
+                // (User user) => (user.username.toLowerCase().contains(query.toLowerCase()) ||
+                //     (user.name.toLowerCase().contains(query.toLowerCase()))),
+              }).toList()
+            : [];
     return ListView.builder(
       itemCount: suggestionList.length,
       itemBuilder: ((context, index) {
@@ -136,12 +139,14 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: UniversalVariables.gradientColorEndhmm,
-      appBar: searchAppBar(context),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: buildSuggestions(query),
+    return PickupLayout(
+      scaffold: Scaffold(
+        backgroundColor: UniversalVariables.gradientColorEndhmm,
+        appBar: searchAppBar(context),
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: buildSuggestions(query),
+        ),
       ),
     );
   }

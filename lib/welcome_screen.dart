@@ -73,10 +73,10 @@ class _GetStartedState extends State<GetStarted> with TickerProviderStateMixin {
         Tween<double>(begin: 1.0, end: 32.0).animate(_scale2Controller)
           ..addStatusListener((status) {
             if (status == AnimationStatus.completed) {
-              Navigator.pushReplacement(
-                  context,
-                  PageTransition(
-                      type: PageTransitionType.fade, child: LoginPage()));
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginPage()));
+              // PageTransition(
+              //     type: PageTransitionType.fade, child: LoginPage()));
             }
           });
   }

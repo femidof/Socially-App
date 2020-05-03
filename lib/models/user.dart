@@ -33,7 +33,7 @@ class User {
     data["status"] = user.status;
     data["state"] = user.state;
     data["bio"] = user.bio;
-    data["profile_photo"] = user.profilePhoto;
+    data["profilePhoto"] = user.profilePhoto;
     return data;
   }
 
@@ -46,7 +46,7 @@ class User {
     this.status = mapData['status'];
     this.state = mapData['state'];
     this.bio = mapData['bio'];
-    this.profilePhoto = mapData['profile_photo'];
+    this.profilePhoto = mapData['profilePhoto'];
   }
 
   factory User.fromDocument(DocumentSnapshot doc) {

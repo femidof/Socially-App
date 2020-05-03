@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:socially/models/widgets/appbar.dart';
+import 'package:socially/screens/pages/callscreens/pickup/pickup_layout.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -9,9 +10,11 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: header(context, "Profile"),
-      body: Text("Profile"),
+    return PickupLayout(
+      scaffold: Scaffold(
+        appBar: header(context, "Profile"),
+        body: Text("Profile"),
+      ),
     );
   }
 }

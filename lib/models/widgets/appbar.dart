@@ -75,7 +75,7 @@ AppBar header(BuildContext context, String text) {
             style: TextStyle(
               color: Colors.white,
 //              fontFamily: "Pacifico",
-              fontSize: 23,
+              fontSize: 18,
             ),
           ),
     centerTitle: true,
