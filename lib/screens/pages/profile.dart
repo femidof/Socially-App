@@ -10,11 +10,9 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
-    return PickupLayout(
-      scaffold: Scaffold(
-        appBar: header(context, "Profile"),
-        body: Text("Profile"),
-      ),
+    return Scaffold(
+      appBar: header(context, "Profile"),
+      body: Text("Profile"),
     );
   }
 }

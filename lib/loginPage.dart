@@ -33,13 +33,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     // TODO: implement initState
-
-    // final userP = Provider.of<User>(context);
-    // if (userP != null) {
-    //   print("so it is here???");
-    //   Navigator.pushReplacement(context,
-    //       PageTransition(type: PageTransitionType.fade, child: MyHome()));
-    // }
     super.initState();
   }
 
@@ -122,6 +115,12 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final userP = Provider.of<User>(context);
+    if (userP != null) {
+      print("so it is here???");
+      Navigator.pushReplacement(context,
+          PageTransition(type: PageTransitionType.fade, child: MyHome()));
+    }
     return Scaffold(
       backgroundColor: Color.fromRGBO(3, 9, 23, 1),
       body: SingleChildScrollView(
