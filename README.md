@@ -1,6 +1,6 @@
 # socially
 
-A new Flutter project.
+This is a social networking app and it currently full of bugs. Needs fixing with the providers, and authentications. otherwise the chatting and image sending works fine. and also an integration of video calling. Currently testing only on android
 
 ## Getting Started
 
