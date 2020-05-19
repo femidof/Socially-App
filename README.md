@@ -1,5 +1,14 @@
 # socially
 
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20messaging.png)
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20screen.png)
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20share.png)
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20view.png)
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chatscreen.png)
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/search%20page.png)
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/search%20with%20key%20words.png)
+
+
 This is a social networking app and it currently full of bugs. Needs fixing with the providers, and authentications. otherwise the chatting and image sending works fine. and also an integration of video calling. Currently testing only on android
 
 ## Getting Started
