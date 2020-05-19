@@ -1,9 +1,7 @@
 # socially
 
-![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20messaging.png)
-![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20screen.png)
-![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20share.png)
-![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20view.png)
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20messaging.png) ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20screen.png)
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20share.png) ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20view.png)
 ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chatscreen.png)
 ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/search%20page.png)
 ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/search%20with%20key%20words.png)
