@@ -18,30 +18,28 @@ class BaseStart extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ImageUploadProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
+        StreamProvider(create: (_) => AuthService().user),
       ],
-      child: StreamProvider<User>.value(
-        value: AuthService().user,
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Socially',
-          theme: ThemeData.dark().copyWith(
-            primaryColor: Color.fromRGBO(3, 9, 23, 1),
-            accentColor: Colors.purple[600],
-            backgroundColor: Color.fromRGBO(3, 9, 23, 1),
-            scaffoldBackgroundColor: Color.fromRGBO(3, 9, 23, 1),
-            textTheme: TextTheme(
-              body1: TextStyle(
-                  // color: Colors.light,
-                  ),
-            ),
-            // brightness: Brightness.dark,
-          ),
-          initialRoute: '/',
-          routes: {
-            '/search_screen': (context) => SearchScreen(),
-          },
-          home: Wrapper(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Socially',
+        theme: ThemeData.dark().copyWith(
+          primaryColor: Color.fromRGBO(3, 9, 23, 1),
+          accentColor: Colors.purple[600],
+          backgroundColor: Color.fromRGBO(3, 9, 23, 1),
+          scaffoldBackgroundColor: Color.fromRGBO(3, 9, 23, 1),
+          // textTheme: TextTheme(
+          //   body1: TextStyle(
+          // color: Colors.light,
+          //       ),
+          // ),
+          // brightness: Brightness.dark,
         ),
+        initialRoute: '/',
+        routes: {
+          '/search_screen': (context) => SearchScreen(),
+        },
+        home: Wrapper(),
       ),
     );
   }

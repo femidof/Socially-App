@@ -20,6 +20,7 @@ class AuthService {
         stream: _auth.onAuthStateChanged,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
+            _userFromFirebaseUser(snapshot.data); //* new changes to test
             return MyHome();
           } else {
             return GetStarted();
@@ -53,7 +54,7 @@ class AuthService {
       String phoneNumber) async {
     _auth.signInWithCredential(authCreds);
     await _auth.signInWithCredential(authCreds);
-    await createUserInFirestore(context, phoneNumber);
+    return await createUserInFirestore(context, phoneNumber);
 
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
@@ -65,7 +66,7 @@ class AuthService {
     DocumentSnapshot doc = await usersRef.document(user.uid.toString()).get();
     final DateTime timestamp = DateTime.now();
     var userPr = Provider.of<User>(context);
-
+// User get userPr => User.fromDocument(doc);
     if (!doc.exists) {
       print("Document Doesn't Exist");
       //if not exist go to create account page
@@ -95,6 +96,7 @@ class AuthService {
     print(currentUser);
     print(currentUser.username);
     userPr = currentUser;
+    return userPr;
     // Navigator.pop(context);
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
@@ -105,7 +107,7 @@ class AuthService {
     AuthCredential authCreds = PhoneAuthProvider.getCredential(
         verificationId: verId, smsCode: smsCode);
     await signIn(authCreds, context, phoneNumber);
-    // createUserInFirestore(context);
+    return await createUserInFirestore(context, phoneNumber);
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
   }

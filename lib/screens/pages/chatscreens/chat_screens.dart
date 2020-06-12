@@ -306,22 +306,27 @@ class _ChatScreenState extends State<ChatScreen> {
                         onTap: () => pickImage(ImageSource.gallery),
                       ),
                       ModalTile(
+                          onTap: () {},
                           title: "File",
                           subtitle: "Share files",
                           icon: Icons.tab),
                       ModalTile(
+                          onTap: () {},
                           title: "Contact",
                           subtitle: "Share contacts",
                           icon: Icons.contacts),
                       ModalTile(
+                          onTap: () {},
                           title: "Location",
                           subtitle: "Share a location",
                           icon: Icons.add_location),
                       ModalTile(
+                          onTap: () {},
                           title: "Schedule Call",
                           subtitle: "Arrange a skype call and get reminders",
                           icon: Icons.schedule),
                       ModalTile(
+                          onTap: () {},
                           title: "Create Poll",
                           subtitle: "Share polls",
                           icon: Icons.poll)
@@ -490,7 +495,10 @@ class _ChatScreenState extends State<ChatScreen> {
             await Permissions.cameraAndMicrophonePermissionsGranted()
                 ? CallUtils.dial(
                     from: sender, to: widget.receiver, context: context)
-                : {};
+                : Scaffold.of(context).showSnackBar(SnackBar(
+                    content:
+                        Text("Permission not granted to Camera adn Microphone"),
+                  ));
           },
         ),
         IconButton(

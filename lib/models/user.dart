@@ -62,4 +62,6 @@ class User {
       profilePhoto: doc['profilePhoto'],
     );
   }
+
+  
 }
