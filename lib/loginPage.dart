@@ -118,8 +118,9 @@ class _LoginPageState extends State<LoginPage> {
     final userP = Provider.of<User>(context);
     if (userP != null) {
       print("so it is here???");
-      Navigator.pushReplacement(context,
-          PageTransition(type: PageTransitionType.fade, child: MyHome()));
+      // Navigator.pushReplacement(context,
+      //     PageTransition(type: PageTransitionType.fade, child: MyHome())
+      //     );
     }
     return Scaffold(
       backgroundColor: Color.fromRGBO(3, 9, 23, 1),
