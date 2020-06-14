@@ -58,108 +58,106 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // PickupLayout(
-        //   scaffold:
-        Scaffold(
-      backgroundColor: Color.fromRGBO(3, 9, 23, 1),
-      // Colors.black,
-      body: PageView(
-        children: <Widget>[
-          Container(
-            child: ChatListScreen(),
-          ),
-          Timeline(),
-          // ContactLogs(),
-          // Search(),
-          // Upload(),
-          ActivityFeed(),
-          Profile(),
-        ],
-        controller: pageController,
-        onPageChanged: onPageChanged,
-        physics: NeverScrollableScrollPhysics(),
-      ),
+    return PickupLayout(
+      scaffold: Scaffold(
+        backgroundColor: Color.fromRGBO(3, 9, 23, 1),
+        // Colors.black,
+        body: PageView(
+          children: <Widget>[
+            Container(
+              child: ChatListScreen(),
+            ),
+            Timeline(),
+            // ContactLogs(),
+            // Search(),
+            // Upload(),
+            ActivityFeed(),
+            Profile(),
+          ],
+          controller: pageController,
+          onPageChanged: onPageChanged,
+          physics: NeverScrollableScrollPhysics(),
+        ),
 
-      bottomNavigationBar: CupertinoTabBar(
-        border: Border(
-            top: BorderSide(
-          color: Colors.grey[700],
-        )),
-        backgroundColor: Theme.of(context).primaryColor,
-        // Color(0xffA800CB),
-        inactiveColor: Colors.grey[400],
-        currentIndex: pageIndex,
-        onTap: (int pageIndex) {
-          pageController.animateToPage(
-            pageIndex,
-            duration: Duration(milliseconds: 250),
-            curve: Curves.easeInOut,
-          );
-        },
-        activeColor:
-            // Theme.of(context).primaryColor,
-            Color(0xffA800CB),
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bubble_chart),
-            // backgroundColor: Colors.redAccent,
-            // activeIcon:
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.whatshot),
-          ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.filter_list),
-          // ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.photo_camera),
-          // ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_active),
-          ),
-          // BottomNavigationBarItem(
-          //   icon: Icon(Icons.search),
-          // ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-          ),
-        ],
-      ),
+        bottomNavigationBar: CupertinoTabBar(
+          border: Border(
+              top: BorderSide(
+            color: Colors.grey[700],
+          )),
+          backgroundColor: Theme.of(context).primaryColor,
+          // Color(0xffA800CB),
+          inactiveColor: Colors.grey[400],
+          currentIndex: pageIndex,
+          onTap: (int pageIndex) {
+            pageController.animateToPage(
+              pageIndex,
+              duration: Duration(milliseconds: 250),
+              curve: Curves.easeInOut,
+            );
+          },
+          activeColor:
+              // Theme.of(context).primaryColor,
+              Color(0xffA800CB),
+          items: [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.bubble_chart),
+              // backgroundColor: Colors.redAccent,
+              // activeIcon:
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.whatshot),
+            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.filter_list),
+            // ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.photo_camera),
+            // ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.notifications_active),
+            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(Icons.search),
+            // ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle),
+            ),
+          ],
+        ),
 
-      // appBar: new AppBar(
-      //   title: new Text('Dashboard'),
-      //   centerTitle: true,
-      // ),
-      // body: Center(
-      //   child: Container(
-      //     child: new Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: <Widget>[
-      //         new Text('You are now logged in as ${uid}'),
-      //         SizedBox(
-      //           height: 15.0,
-      //         ),
-      //         new OutlineButton(
-      //           borderSide: BorderSide(
-      //               color: Colors.red, style: BorderStyle.solid, width: 3.0),
-      //           child: Text('Logout'),
-      //           onPressed: () {
-      //             FirebaseAuth.instance.signOut().then((action) {
-      //               Navigator.push(
-      //                   context,
-      //                   PageTransition(
-      //                       type: PageTransitionType.fade, child: BaseStart()));
-      //             }).catchError((e) {
-      //               print(e);
-      //             });
-      //           },
-      //         ),
-      //       ],
-      //     ),
-      //   ),
-      // ),
-      // ),
+        // appBar: new AppBar(
+        //   title: new Text('Dashboard'),
+        //   centerTitle: true,
+        // ),
+        // body: Center(
+        //   child: Container(
+        //     child: new Column(
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: <Widget>[
+        //         new Text('You are now logged in as ${uid}'),
+        //         SizedBox(
+        //           height: 15.0,
+        //         ),
+        //         new OutlineButton(
+        //           borderSide: BorderSide(
+        //               color: Colors.red, style: BorderStyle.solid, width: 3.0),
+        //           child: Text('Logout'),
+        //           onPressed: () {
+        //             FirebaseAuth.instance.signOut().then((action) {
+        //               Navigator.push(
+        //                   context,
+        //                   PageTransition(
+        //                       type: PageTransitionType.fade, child: BaseStart()));
+        //             }).catchError((e) {
+        //               print(e);
+        //             });
+        //           },
+        //         ),
+        //       ],
+        //     ),
+        //   ),
+        // ),
+      ),
     );
   }
 

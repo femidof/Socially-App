@@ -139,17 +139,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return
-        // PickupLayout(
-        //   scaffold:
-        Scaffold(
-      backgroundColor: UniversalVariables.gradientColorEndhmm,
-      appBar: searchAppBar(context),
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
-        child: buildSuggestions(query),
+    return PickupLayout(
+      scaffold: Scaffold(
+        backgroundColor: UniversalVariables.gradientColorEndhmm,
+        appBar: searchAppBar(context),
+        body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: buildSuggestions(query),
+        ),
       ),
-      // ),
     );
   }
 }

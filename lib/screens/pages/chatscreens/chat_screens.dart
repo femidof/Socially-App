@@ -306,25 +306,35 @@ class _ChatScreenState extends State<ChatScreen> {
                         onTap: () => pickImage(ImageSource.gallery),
                       ),
                       ModalTile(
-                          title: "File",
-                          subtitle: "Share files",
-                          icon: Icons.tab),
+                        title: "File",
+                        subtitle: "Share files",
+                        icon: Icons.tab,
+                        onTap: () {},
+                      ),
                       ModalTile(
-                          title: "Contact",
-                          subtitle: "Share contacts",
-                          icon: Icons.contacts),
+                        title: "Contact",
+                        subtitle: "Share contacts",
+                        icon: Icons.contacts,
+                        onTap: () {},
+                      ),
                       ModalTile(
-                          title: "Location",
-                          subtitle: "Share a location",
-                          icon: Icons.add_location),
+                        title: "Location",
+                        subtitle: "Share a location",
+                        icon: Icons.add_location,
+                        onTap: () {},
+                      ),
                       ModalTile(
-                          title: "Schedule Call",
-                          subtitle: "Arrange a skype call and get reminders",
-                          icon: Icons.schedule),
+                        title: "Schedule Call",
+                        subtitle: "Arrange a skype call and get reminders",
+                        icon: Icons.schedule,
+                        onTap: () {},
+                      ),
                       ModalTile(
-                          title: "Create Poll",
-                          subtitle: "Share polls",
-                          icon: Icons.poll)
+                        title: "Create Poll",
+                        subtitle: "Share polls",
+                        icon: Icons.poll,
+                        onTap: () {},
+                      ),
                     ],
                   ),
                 ),
@@ -489,10 +499,10 @@ class _ChatScreenState extends State<ChatScreen> {
             Icons.video_call,
           ),
           onPressed: () async {
-            // await Permissions.cameraAndMicrophonePermissionsGranted()
-            //     ? CallUtils.dial(
-            //         from: sender, to: widget.receiver, context: context)
-            //     : {};
+            await Permissions.cameraAndMicrophonePermissionsGranted()
+                ? CallUtils.dial(
+                    from: sender, to: widget.receiver, context: context)
+                : print("Permission not granted");
           },
         ),
         IconButton(
