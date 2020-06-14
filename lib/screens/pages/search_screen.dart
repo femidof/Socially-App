@@ -112,7 +112,7 @@ class _SearchScreenState extends State<SearchScreen> {
         return CustomTile(
           mini: false,
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => ChatScreen(receiver: searchedUser)));

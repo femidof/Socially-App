@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/provider/image_upload_provider.dart';
 import 'package:socially/provider/user_provider.dart';
+import 'package:socially/screens/pages/chat_list_screen.dart';
 import 'package:socially/screens/pages/search_screen.dart';
 import 'package:socially/screens/wrapper.dart';
 import 'package:socially/services/auth.dart';
@@ -34,6 +35,7 @@ class BaseStart extends StatelessWidget {
           initialRoute: '/',
           routes: {
             '/search_screen': (context) => SearchScreen(),
+            '/chat_list': (context) => ChatListScreen(),
           },
           home: Wrapper(),
         ),
