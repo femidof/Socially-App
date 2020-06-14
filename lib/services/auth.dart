@@ -8,7 +8,7 @@ import 'package:socially/models/user.dart';
 import 'package:socially/screens/pages/create_account.dart';
 import 'package:socially/welcome_screen.dart';
 
-class AuthService {
+class AuthService with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   User currentUser;
 

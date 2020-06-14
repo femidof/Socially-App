@@ -11,7 +11,8 @@ import 'package:socially/provider/image_upload_provider.dart';
 class FirebaseMethods {
   static final Firestore firestore = Firestore.instance;
   static final CollectionReference _userCollection =
-      firestore.collection("user");
+      firestore.collection("users");
+  // firestore.collection("user"); for production
   //user class
   User user = User();
   StorageReference _storageReference;

@@ -140,6 +140,7 @@ class _ChatScreenState extends State<ChatScreen> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.data == null) {
+          print("We have nothing here");
           return Center(
             child: CircularProgressIndicator(),
           );
