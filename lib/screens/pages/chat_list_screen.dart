@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/appbar.dart';
 import 'package:socially/models/widgets/custom_tile.dart';
 import 'package:socially/services/auth.dart';
 import 'package:socially/utils/universal_variables.dart';
 import 'package:socially/utils/utilities.dart';
 
+// TODO Update the auth data and the firebase storage info to sync
 class ChatListScreen extends StatefulWidget {
   @override
   _ChatListScreenState createState() => _ChatListScreenState();
@@ -19,6 +21,7 @@ final AuthService _auths = AuthService();
 class _ChatListScreenState extends State<ChatListScreen> {
   String currentUserId;
   String initials;
+  User user;
 
   @override
   void initState() {
@@ -26,6 +29,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
     super.initState();
     _auth.currentUser().then((user) {
       setState(() {
+        if (currentUserId == user.uid) {}
         currentUserId = user.uid;
         initials = Utils.getInitials(user.displayName);
       });
@@ -70,7 +74,13 @@ class _ChatListScreenState extends State<ChatListScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            print("$currentUserId");
+            print("${user.uid}");
+            // print("$currentUserId");
+            // _auth.currentUser().then((user) {
+            //   print("${user.displayName}");
+            //   print("${user.email}");
+            //   print("${user.providerData}");
+            // });
           },
         ),
       ],
@@ -93,9 +103,10 @@ class _ChatListScreenState extends State<ChatListScreen> {
 }
 
 class ChatListContainer extends StatefulWidget {
+  ChatListContainer({this.currentUserId});
+
   final String currentUserId;
 
-  ChatListContainer({this.currentUserId});
   @override
   _ChatListContainerState createState() => _ChatListContainerState();
 }
@@ -162,8 +173,10 @@ class _ChatListContainerState extends State<ChatListContainer> {
 }
 
 class UserCircle extends StatelessWidget {
-  final String text;
   UserCircle({this.text});
+
+  final String text;
+
   @override
   Widget build(BuildContext context) {
     return Container(
