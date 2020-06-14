@@ -168,7 +168,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget chatMessageItem(DocumentSnapshot snapshot) {
     Message _message = Message.fromMap(snapshot.data);
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 15),
+      margin: EdgeInsets.symmetric(vertical: 0),
       child: Container(
         alignment: _message.senderId == _currentUserId
             ? Alignment.centerRight
@@ -181,7 +181,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget senderLayout(Message message) {
-    Radius messageRadius = Radius.circular(10);
+    Radius messageRadius = Radius.circular(15);
 
     return Container(
       margin: EdgeInsets.only(top: 12),
@@ -473,7 +473,9 @@ class _ChatScreenState extends State<ChatScreen> {
       centerTitle: false,
       title: Row(
         children: <Widget>[
-          CircleAvatar(),
+          CircleAvatar(
+            backgroundImage: NetworkImage(widget.receiver.profilePhoto),
+          ),
           SizedBox(
             width: 10,
           ),

@@ -71,7 +71,6 @@ class _ChatListScreenState extends State<ChatListScreen> {
           ),
           onPressed: () {
             print("$currentUserId");
-            print("$currentUserId");
           },
         ),
       ],
