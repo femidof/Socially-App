@@ -25,7 +25,7 @@ class _MyHomeState extends State<MyHome> {
   String uid = '';
   PageController pageController;
   int pageIndex = 0;
-  // UserProvider userProvider;
+  UserProvider userProvider;
 
   getUid() {}
 
@@ -33,10 +33,10 @@ class _MyHomeState extends State<MyHome> {
   void initState() {
     super.initState();
 
-    // SchedulerBinding.instance.addPostFrameCallback((_) {
-    //   userProvider = Provider.of<UserProvider>(context, listen: false);
-    //   userProvider.refreshUser();
-    // });
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      userProvider = Provider.of<UserProvider>(context, listen: false);
+      userProvider.refreshUser();
+    });
     pageController = PageController(
         // initialPage: 2,
         );

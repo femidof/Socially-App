@@ -69,7 +69,10 @@ class _ChatListScreenState extends State<ChatListScreen> {
             Icons.more_vert,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+            print("$currentUserId");
+            print("$currentUserId");
+          },
         ),
       ],
     );
