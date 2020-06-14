@@ -62,7 +62,8 @@ class _MyHomeState extends State<MyHome> {
         // PickupLayout(
         //   scaffold:
         Scaffold(
-      // backgroundColor: Color.fromRGBO(3, 9, 23, 1),
+      backgroundColor: Color.fromRGBO(3, 9, 23, 1),
+      // Colors.black,
       body: PageView(
         children: <Widget>[
           Container(

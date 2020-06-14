@@ -40,7 +40,7 @@ dependencies:
   page_transition: ^1.1.5
   shimmer: ^1.1.1
   provider: ^4.0.4
-  flutter_spinkit: ^4.1.2
+  flutter_spinkit: ^4.1.2+1
   country_pickers: ^1.2.0
   gradient_app_bar: ^0.0.1
   emoji_picker: ^0.1.0

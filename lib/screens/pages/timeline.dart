@@ -21,8 +21,9 @@ class _TimelineState extends State<Timeline> {
   @override
   Widget build(context) {
     return Scaffold(
+      backgroundColor: Color.fromRGBO(3, 9, 23, 1),
       appBar: header(context, "Socially"),
-      body: ProgressBar.circularProgress(),
+      body: ProgressBar.circularStylishProgress(),
     );
   }
 }

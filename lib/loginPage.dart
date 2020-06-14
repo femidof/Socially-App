@@ -248,10 +248,12 @@ class _LoginPageState extends State<LoginPage> {
                             print("Works here");
                             if (this.userP == null) {
                               print("Error IN System Process");
-                              return null;
+                              // return null;
                             } else {
+                              print(userP.toString());
+                              print("omgggggg?");
                               print("so it is here???");
-                              return MyHome();
+                              // return MyHome();
                             }
                           });
                           print("hello");

@@ -102,6 +102,7 @@ class _ChatListContainerState extends State<ChatListContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Color.fromRGBO(3, 9, 23, 1),
       child: ListView.builder(
         padding: EdgeInsets.all(10.0),
         itemCount: 10,

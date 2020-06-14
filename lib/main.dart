@@ -29,7 +29,6 @@ class BaseStart extends StatelessWidget {
             primaryColor: Color.fromRGBO(3, 9, 23, 1),
             accentColor: Colors.purple[600],
             backgroundColor: Color.fromRGBO(3, 9, 23, 1),
-
             // brightness: Brightness.dark,
           ),
           initialRoute: '/',

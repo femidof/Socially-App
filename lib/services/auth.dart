@@ -11,7 +11,7 @@ import 'package:socially/welcome_screen.dart';
 class AuthService {
   FirebaseAuth _auth = FirebaseAuth.instance;
   User currentUser;
-//  Firestore firestore =
+
   //Handles Auth
   final usersRef = Firestore.instance.collection('user');
 
@@ -105,6 +105,7 @@ class AuthService {
     AuthCredential authCreds = PhoneAuthProvider.getCredential(
         verificationId: verId, smsCode: smsCode);
     await signIn(authCreds, context, phoneNumber);
+
     // createUserInFirestore(context);
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
