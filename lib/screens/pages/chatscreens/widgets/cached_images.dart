@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:socially/models/widgets/progress_bar.dart';
 
 class CachedImage extends StatelessWidget {
   final String imageUrl;
@@ -33,8 +34,11 @@ class CachedImage extends StatelessWidget {
             child: CachedNetworkImage(
               imageUrl: imageUrl,
               fit: fit,
-              placeholder: (context, url) =>
-                  Center(child: CircularProgressIndicator()),
+              placeholder: (context, url) => Center(
+                child:
+                    // CircularProgressIndicator(),
+                    ProgressBar.circularStylishProgress(),
+              ),
               errorWidget: (context, url, error) =>
                   Image.network(noImageAvailable, fit: BoxFit.cover),
             )),

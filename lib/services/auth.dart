@@ -13,7 +13,8 @@ class AuthService with ChangeNotifier {
   User currentUser;
 
   //Handles Auth
-  final usersRef = Firestore.instance.collection('user');
+  final usersRef = Firestore.instance.collection('users');
+  // final usersRef = Firestore.instance.collection('user');
 
   handleAuth() {
     return StreamBuilder(

@@ -13,6 +13,7 @@ import 'package:socially/models/message.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/appbar.dart';
 import 'package:socially/models/widgets/custom_tile.dart';
+import 'package:socially/models/widgets/progress_bar.dart';
 import 'package:socially/provider/image_upload_provider.dart';
 import 'package:socially/screens/pages/callscreens/pickup/pickup_layout.dart';
 import 'package:socially/screens/pages/chatscreens/widgets/cached_images.dart';
@@ -141,7 +142,9 @@ class _ChatScreenState extends State<ChatScreen> {
       builder: (context, snapshot) {
         if (snapshot.data == null) {
           return Center(
-            child: CircularProgressIndicator(),
+            child:
+                // CircularProgressIndicator(),
+                ProgressBar.circularStylishProgress(),
           );
         }
 

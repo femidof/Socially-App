@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/appbar.dart';
 import 'package:socially/models/widgets/custom_tile.dart';
@@ -8,7 +9,6 @@ import 'package:socially/services/auth.dart';
 import 'package:socially/utils/universal_variables.dart';
 import 'package:socially/utils/utilities.dart';
 
-// TODO Update the auth data and the firebase storage info to sync
 class ChatListScreen extends StatefulWidget {
   @override
   _ChatListScreenState createState() => _ChatListScreenState();
@@ -16,24 +16,30 @@ class ChatListScreen extends StatefulWidget {
 // FirebaseMetho
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseMethods methods = FirebaseMethods();
 final AuthService _auths = AuthService();
 
 class _ChatListScreenState extends State<ChatListScreen> {
   String currentUserId;
   String initials;
-  User user;
+  // User user;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    _auth.currentUser().then((user) {
+    methods.getUserDetails().then((user) {
       setState(() {
-        if (currentUserId == user.uid) {}
         currentUserId = user.uid;
         initials = Utils.getInitials(user.displayName);
       });
     });
+    // _auth.currentUser().then((user) {
+    //   setState(() {
+    //     if (currentUserId == user.uid) {}
+    //     currentUserId = user.uid;
+    //     initials = Utils.getInitials(user.displayName);
+    //   });
+    // });
   }
 
   CustomAppBar customAppBar(BuildContext context) {
@@ -46,8 +52,9 @@ class _ChatListScreenState extends State<ChatListScreen> {
           ),
           onPressed: () {}),
       title: UserCircle(
-        text: "DOF",
-        // initials,
+        text:
+            // "DOF",
+            initials,
       ),
       centerTitle: true,
       actions: <Widget>[
@@ -74,13 +81,9 @@ class _ChatListScreenState extends State<ChatListScreen> {
             color: Colors.white,
           ),
           onPressed: () {
-            print("${user.uid}");
+            // print("${user.uid}");
             // print("$currentUserId");
-            // _auth.currentUser().then((user) {
-            //   print("${user.displayName}");
-            //   print("${user.email}");
-            //   print("${user.providerData}");
-            // });
+            // print("initials = $initials");
           },
         ),
       ],

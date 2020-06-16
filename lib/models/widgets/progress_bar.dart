@@ -23,6 +23,7 @@ class ProgressBar {
 
   static circularStylishProgress() {
     return Container(
+      color: Color.fromRGBO(3, 9, 23, 1),
       alignment: Alignment.center,
       padding: EdgeInsets.all(10.0),
       child: SpinKitDoubleBounce(

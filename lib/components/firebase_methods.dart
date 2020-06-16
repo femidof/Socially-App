@@ -9,6 +9,7 @@ import 'package:socially/models/user.dart';
 import 'package:socially/provider/image_upload_provider.dart';
 
 class FirebaseMethods {
+  FirebaseAuth auth = FirebaseAuth.instance;
   static final Firestore firestore = Firestore.instance;
   static final CollectionReference _userCollection =
       firestore.collection("users");
@@ -124,4 +125,10 @@ class FirebaseMethods {
         await _userCollection.document(currentUser.uid).get();
     return User.fromMap(documentSnapshot.data);
   }
+
+  // syncData() async {
+  //   var user = await auth.currentUser();
+  //   firestore.collection("user").document(user.uid);
+  //   auth.
+  // }
 }
