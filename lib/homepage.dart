@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/main.dart';
 import 'package:socially/provider/user_provider.dart';
 import 'package:socially/screens/pages/activity_feed.dart';
@@ -15,6 +16,9 @@ import 'package:socially/screens/pages/profile.dart';
 import 'package:socially/screens/pages/search.dart';
 import 'package:socially/screens/pages/timeline.dart';
 import 'package:socially/screens/pages/upload.dart';
+import 'package:socially/utils/utilities.dart';
+
+final FirebaseMethods methods = FirebaseMethods();
 
 class MyHome extends StatefulWidget {
   @override
@@ -26,12 +30,20 @@ class _MyHomeState extends State<MyHome> {
   PageController pageController;
   int pageIndex = 0;
   UserProvider userProvider;
+  String currentUserId;
+  String initials;
 
   getUid() {}
 
   @override
   void initState() {
     super.initState();
+    methods.getUserDetails().then((user) {
+      setState(() {
+        currentUserId = user.uid;
+        initials = Utils.getInitials(user.displayName);
+      });
+    });
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
       userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -65,7 +77,9 @@ class _MyHomeState extends State<MyHome> {
         body: PageView(
           children: <Widget>[
             Container(
-              child: ChatListScreen(),
+              child: ChatListScreen(
+                initial: initials,
+              ),
             ),
             Timeline(),
             // ContactLogs(),

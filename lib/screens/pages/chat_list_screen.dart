@@ -10,6 +10,8 @@ import 'package:socially/utils/universal_variables.dart';
 import 'package:socially/utils/utilities.dart';
 
 class ChatListScreen extends StatefulWidget {
+  String initial;
+  ChatListScreen({this.initial});
   @override
   _ChatListScreenState createState() => _ChatListScreenState();
 }
@@ -27,6 +29,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
   @override
   void initState() {
     super.initState();
+    initials = widget.initial;
     methods.getUserDetails().then((user) {
       setState(() {
         currentUserId = user.uid;
