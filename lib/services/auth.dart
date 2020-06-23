@@ -6,11 +6,16 @@ import 'package:provider/provider.dart';
 import 'package:socially/homepage.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/screens/pages/create_account.dart';
+import 'package:socially/screens/pages/timeline.dart';
+import 'package:socially/screens/pages/widgets/user_state.dart';
+import 'package:socially/utils/utilities.dart';
 import 'package:socially/welcome_screen.dart';
 
 class AuthService with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   User currentUser;
+  static final CollectionReference _userCollection =
+      firestore.collection("users");
 
   //Handles Auth
   final usersRef = Firestore.instance.collection('users');
@@ -111,4 +116,13 @@ class AuthService with ChangeNotifier {
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
   }
+
+  void setUserState({@required String userId, @required UserState userState}) {
+    int stateNum = Utils.stateToNum(userState);
+
+    _userCollection.document(userId).updateData({"state": stateNum});
+  }
+
+  Stream<DocumentSnapshot> getUserStream({@required String uid}) =>
+      _userCollection.document(uid).snapshots();
 }

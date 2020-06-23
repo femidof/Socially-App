@@ -8,6 +8,7 @@ import 'package:socially/models/widgets/progress_bar.dart';
 import 'package:socially/provider/user_provider.dart';
 import 'package:socially/screens/pages/chatscreens/chat_screens.dart';
 import 'package:socially/screens/pages/chatscreens/widgets/cached_images.dart';
+import 'package:socially/screens/pages/widgets/last_message_container.dart';
 import 'package:socially/utils/universal_variables.dart';
 
 class ContactView extends StatelessWidget {
@@ -57,11 +58,10 @@ class ViewLayout extends StatelessWidget {
           fontSize: 19,
         ),
       ),
-      subtitle: Text(
-        "Hello",
-        style: TextStyle(
-          color: UniversalVariables.greyColor,
-          fontSize: 14,
+      subtitle: LastMessageContainer(
+        stream: _chatMethods.fetchLastMessageBetween(
+          senderId: userProvider.getUser.uid,
+          receiverId: contact.uid,
         ),
       ),
       leading: Container(
