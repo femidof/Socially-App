@@ -78,7 +78,7 @@ class _MyHomeState extends State<MyHome> {
           children: <Widget>[
             Container(
               child: ChatListScreen(
-                initial: initials,
+                initials: initials,
               ),
             ),
             Timeline(),
