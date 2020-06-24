@@ -11,11 +11,14 @@ import 'package:socially/provider/user_provider.dart';
 import 'package:socially/screens/pages/activity_feed.dart';
 import 'package:socially/screens/pages/callscreens/pickup/pickup_layout.dart';
 import 'package:socially/screens/pages/chat_list_screen.dart';
+import 'package:socially/screens/pages/chat_page.dart';
 import 'package:socially/screens/pages/contact_logs.dart';
 import 'package:socially/screens/pages/profile.dart';
 import 'package:socially/screens/pages/search.dart';
 import 'package:socially/screens/pages/timeline.dart';
 import 'package:socially/screens/pages/upload.dart';
+import 'package:socially/screens/pages/widgets/user_state.dart';
+import 'package:socially/services/auth.dart';
 import 'package:socially/utils/utilities.dart';
 
 final FirebaseMethods methods = FirebaseMethods();
@@ -25,13 +28,14 @@ class MyHome extends StatefulWidget {
   _MyHomeState createState() => _MyHomeState();
 }
 
-class _MyHomeState extends State<MyHome> {
+class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
   String uid = '';
   PageController pageController;
   int pageIndex = 0;
   UserProvider userProvider;
   String currentUserId;
   String initials;
+  AuthService _authMethods = AuthService();
 
   getUid() {}
 
@@ -44,10 +48,15 @@ class _MyHomeState extends State<MyHome> {
         initials = Utils.getInitials(user.displayName);
       });
     });
-
+    WidgetsBinding.instance.addObserver(this);
     SchedulerBinding.instance.addPostFrameCallback((_) {
       userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.refreshUser();
+
+      _authMethods.setUserState(
+        userId: userProvider.getUser.uid,
+        userState: UserState.Online,
+      );
     });
     pageController = PageController(
         // initialPage: 2,
@@ -60,6 +69,57 @@ class _MyHomeState extends State<MyHome> {
     }).catchError((e) {
       print(e);
     });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    String currentUserId =
+        (userProvider != null && userProvider.getUser != null)
+            ? userProvider.getUser.uid
+            : "";
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        currentUserId != null
+            ? _authMethods.setUserState(
+                userId: currentUserId,
+                userState: UserState.Online,
+              )
+            : print("resumed state");
+        break;
+      case AppLifecycleState.inactive:
+        currentUserId != null
+            ? _authMethods.setUserState(
+                userId: currentUserId,
+                userState: UserState.Offline,
+              )
+            : print("inactive state");
+        break;
+      case AppLifecycleState.paused:
+        currentUserId != null
+            ? _authMethods.setUserState(
+                userId: currentUserId,
+                userState: UserState.Waiting,
+              )
+            : print("paused state");
+        break;
+      case AppLifecycleState.detached:
+        currentUserId != null
+            ? _authMethods.setUserState(
+                userId: currentUserId,
+                userState: UserState.Offline,
+              )
+            : print("detached state");
+        break;
+      default:
+    }
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   onPageChanged(int pageIndex) {
@@ -173,12 +233,5 @@ class _MyHomeState extends State<MyHome> {
         // ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    pageController.dispose();
-    super.dispose();
   }
 }

@@ -8,7 +8,7 @@ class User {
   String username;
   String status;
   String bio;
-  String state;
+  int state;
   String profilePhoto;
 
   User({

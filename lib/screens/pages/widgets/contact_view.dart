@@ -9,6 +9,7 @@ import 'package:socially/provider/user_provider.dart';
 import 'package:socially/screens/pages/chatscreens/chat_screens.dart';
 import 'package:socially/screens/pages/chatscreens/widgets/cached_images.dart';
 import 'package:socially/screens/pages/widgets/last_message_container.dart';
+import 'package:socially/screens/pages/widgets/online_dot_indicator.dart';
 import 'package:socially/utils/universal_variables.dart';
 
 class ContactView extends StatelessWidget {
@@ -73,21 +74,7 @@ class ViewLayout extends StatelessWidget {
               radius: 80,
               isRound: true,
             ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Container(
-                height: 15,
-                width: 15,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: UniversalVariables.onlineDotColor,
-                  border: Border.all(
-                    color: UniversalVariables.blackColor,
-                    width: 2,
-                  ),
-                ),
-              ),
-            )
+            OnlineDotIndicator(uid: contact.uid),
           ],
         ),
       ),
