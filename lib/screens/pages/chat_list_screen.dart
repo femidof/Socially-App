@@ -1,25 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/models/contact.dart';
-import 'package:socially/models/user.dart';
+// import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/appbar.dart';
-import 'package:socially/models/widgets/custom_tile.dart';
+// import 'package:socially/models/widgets/custom_tile.dart';
 import 'package:socially/models/widgets/progress_bar.dart';
 import 'package:socially/provider/user_provider.dart';
 import 'package:socially/screens/pages/widgets/contact_view.dart';
 import 'package:socially/screens/pages/widgets/new_chat_button.dart';
 import 'package:socially/screens/pages/widgets/quiet_box.dart';
 import 'package:socially/screens/pages/widgets/user_circle.dart';
-import 'package:socially/services/auth.dart';
-import 'package:socially/utils/universal_variables.dart';
-import 'package:socially/utils/utilities.dart';
+// import 'package:socially/services/auth.dart';
+// import 'package:socially/utils/universal_variables.dart';
+// import 'package:socially/utils/utilities.dart';
 
 class ChatListScreen extends StatelessWidget {
-  String initials;
+  final String initials;
   ChatListScreen({this.initials});
 
 // final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -78,9 +78,6 @@ class ChatListScreen extends StatelessWidget {
       appBar: customAppBar(context),
       floatingActionButton: NewChatButton(),
       body: ChatListContainer(),
-      //  FloatingActionButton(
-      //   onPressed: () {},
-      // ),
     );
   }
 }
@@ -97,7 +94,7 @@ class ChatListContainer extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var docList = snapshot.data.documents;
-
+              // print("testing and debuggin ${docList.toString()}");
               if (docList.isEmpty) {
                 return QuietBox();
               }
@@ -112,6 +109,7 @@ class ChatListContainer extends StatelessWidget {
                 },
               );
             }
+            // print("testing and debuggin ${userProvider.getUser.uid}");
             return ProgressBar.circularStylishProgress();
           }),
     );

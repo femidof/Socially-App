@@ -90,7 +90,7 @@ class AuthService with ChangeNotifier {
         "bio": "",
         "timestamp": timestamp,
         "state": "",
-        "status": "",
+        "status": null,
         "phoneNumber": phoneNumber,
         "post": 0,
         "isAdmin": false

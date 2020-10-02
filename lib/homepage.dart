@@ -143,7 +143,7 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
             ),
             Timeline(),
             // ContactLogs(),
-            // Search(),
+            Search(),
             // Upload(),
             ActivityFeed(),
             Profile(),

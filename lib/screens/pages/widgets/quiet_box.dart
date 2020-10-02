@@ -42,7 +42,7 @@ class QuietBox extends StatelessWidget {
                 height: 25,
               ),
               FlatButton(
-                color: UniversalVariables.lightBlueColor,
+                color: UniversalVariables.gradientColorEndhmm,
                 onPressed: () => Navigator.push(
                   context,
                   MaterialPageRoute(
