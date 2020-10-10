@@ -14,6 +14,7 @@ import 'package:socially/screens/pages/widgets/contact_view.dart';
 import 'package:socially/screens/pages/widgets/new_chat_button.dart';
 import 'package:socially/screens/pages/widgets/quiet_box.dart';
 import 'package:socially/screens/pages/widgets/user_circle.dart';
+import 'package:socially/services/auth.dart';
 // import 'package:socially/services/auth.dart';
 // import 'package:socially/utils/universal_variables.dart';
 // import 'package:socially/utils/utilities.dart';
@@ -63,6 +64,7 @@ class ChatListScreen extends StatelessWidget {
             color: Colors.white,
           ),
           onPressed: () {
+            AuthService().signOut();
             // print("${user.uid}");
             // print("$currentUserId");
             // print("initials = $initials");

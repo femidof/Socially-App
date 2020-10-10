@@ -115,6 +115,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    // var user = Provider.of<StreamProvider>(context);
     final userP = Provider.of<User>(context);
     if (userP != null) {
       print("so it is here???");
@@ -247,12 +248,17 @@ class _LoginPageState extends State<LoginPage> {
                                 : verifyPhone(mainPhoneNumber);
                             print("Works here");
                             if (this.userP == null) {
-                              print("Error IN System Process");
+                              print("Error In System Process");
                               // return null;
                             } else {
-                              print(userP.toString());
+                              print("${userP.toString()} that is it");
                               print("omgggggg?");
                               print("so it is here???");
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => MyHome(),
+                                  ));
                               // return MyHome();
                             }
                           });

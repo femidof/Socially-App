@@ -42,10 +42,13 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+
     methods.getUserDetails().then((user) {
       setState(() {
         currentUserId = user.uid;
         initials = Utils.getInitials(user.displayName);
+        print("${user.uid} : wow wow wow");
+        print("${userProvider.getUser.uid} : intereest wow wow");
       });
     });
     WidgetsBinding.instance.addObserver(this);
@@ -143,7 +146,7 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
             ),
             Timeline(),
             // ContactLogs(),
-            Search(),
+            // Search(),
             // Upload(),
             ActivityFeed(),
             Profile(),

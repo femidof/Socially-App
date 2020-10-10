@@ -60,7 +60,7 @@ class AuthService with ChangeNotifier {
     _auth.signInWithCredential(authCreds);
     await _auth.signInWithCredential(authCreds);
     await createUserInFirestore(context, phoneNumber);
-
+    notifyListeners();
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
   }

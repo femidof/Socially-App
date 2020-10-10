@@ -8,7 +8,7 @@ import 'package:socially/services/auth.dart';
 class Wrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<User>(context);
+    final user = Provider.of<User>(context, listen: true);
 
     //return Home or Authenticate
     if (user == null) {

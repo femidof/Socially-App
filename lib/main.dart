@@ -21,9 +21,9 @@ class BaseStart extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserProvider()),
         StreamProvider(create: (_) => AuthService().user),
       ],
-      child: StreamProvider<User>.value(
-        value: AuthService().user,
-        child: MaterialApp(
+      child: Consumer<User>(
+        // value: AuthService().user,
+        builder: (context, value, child) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Socially',
           theme: ThemeData.dark().copyWith(
