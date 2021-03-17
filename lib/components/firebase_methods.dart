@@ -66,8 +66,8 @@ class FirebaseMethods {
     currentTime,
   ) async {
     DocumentSnapshot senderSnapshot = await getContactsDocument(
-      of: senderId,
-      forContact: receiverId,
+      of: receiverId,
+      forContact: senderId,
     ).get();
     if (!senderSnapshot.exists) {
       //doesnt exit
@@ -78,8 +78,8 @@ class FirebaseMethods {
       var receiverMap = receiverContact.toMap(receiverContact);
 
       await getContactsDocument(
-        of: senderId,
-        forContact: receiverId,
+        of: receiverId,
+        forContact: senderId,
       ).setData(receiverMap);
     }
   }

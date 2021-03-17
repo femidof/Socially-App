@@ -166,11 +166,12 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
           inactiveColor: Colors.grey[400],
           currentIndex: pageIndex,
           onTap: (int pageIndex) {
-            pageController.animateToPage(
-              pageIndex,
-              duration: Duration(milliseconds: 250),
-              curve: Curves.easeInOut,
-            );
+            pageController.jumpToPage(pageIndex);
+            // pageController.animateToPage(
+            //   pageIndex,
+            //   duration: Duration(milliseconds: 1000),
+            //   curve: Curves.easeInOut,
+            // );
           },
           activeColor:
               // Theme.of(context).primaryColor,
@@ -179,25 +180,35 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
             BottomNavigationBarItem(
               icon: Icon(Icons.bubble_chart),
               // backgroundColor: Colors.redAccent,
-              // activeIcon:
+              activeIcon: Icon(
+                Icons.bubble_chart,
+                color: Colors.blueAccent,
+              ),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.whatshot),
+              activeIcon: Icon(
+                Icons.whatshot,
+                color: Colors.redAccent,
+              ),
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.filter_list),
-            // ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.photo_camera),
-            // ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_active),
+              icon: Icon(
+                Icons.notifications,
+              ),
+              activeIcon: Icon(
+                Icons.notifications,
+                color: Colors.greenAccent,
+              ),
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.search),
-            // ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
+              icon: Icon(
+                Icons.account_circle,
+              ),
+              activeIcon: Icon(
+                Icons.account_circle,
+                color: Colors.amberAccent,
+              ),
             ),
           ],
         ),

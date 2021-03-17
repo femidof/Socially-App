@@ -96,11 +96,12 @@ class ChatListContainer extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var docList = snapshot.data.documents;
-              // print("testing and debuggin ${docList.toString()}");
+              print("testing and debuggin ${docList.length}");
               if (docList.isEmpty) {
                 return QuietBox();
               }
-              ListView.builder(
+              print("testing and debuggin ${userProvider.getUser.uid}");
+              return ListView.builder(
                 padding: EdgeInsets.all(10.0),
                 itemCount: docList.length,
                 itemBuilder: (context, index) {
@@ -111,7 +112,7 @@ class ChatListContainer extends StatelessWidget {
                 },
               );
             }
-            // print("testing and debuggin ${userProvider.getUser.uid}");
+            print("testing and debuggin ${userProvider.getUser.uid}");
             return ProgressBar.circularStylishProgress();
           }),
     );
