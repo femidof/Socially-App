@@ -88,11 +88,11 @@ class _SearchScreenState extends State<SearchScreen> {
         ? []
         : userList != null
             ? userList.where((User user) {
-                String _getUsername = user.username.toLowerCase();
-                String _query = query.toLowerCase();
-                String _getName = user.displayName.toLowerCase();
-                bool matchesUsername = _getUsername.contains(_query);
-                bool matchesName = _getName.contains(_query);
+                String _getUsername = user.username?.toLowerCase();
+                String _query = query?.toLowerCase();
+                String _getName = user.displayName?.toLowerCase();
+                bool matchesUsername = _getUsername?.contains(_query);
+                bool matchesName = _getName?.contains(_query);
 
                 return (matchesUsername || matchesName);
 
@@ -104,10 +104,10 @@ class _SearchScreenState extends State<SearchScreen> {
       itemCount: suggestionList.length,
       itemBuilder: ((context, index) {
         User searchedUser = User(
-            uid: suggestionList[index].uid,
-            profilePhoto: suggestionList[index].profilePhoto,
-            displayName: suggestionList[index].displayName,
-            username: suggestionList[index].username);
+            uid: suggestionList[index]?.uid,
+            profilePhoto: suggestionList[index]?.profilePhoto,
+            displayName: suggestionList[index]?.displayName,
+            username: suggestionList[index]?.username);
 
         return CustomTile(
           mini: false,
@@ -118,7 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     builder: (context) => ChatScreen(receiver: searchedUser)));
           },
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(searchedUser.profilePhoto),
+            backgroundImage: NetworkImage(searchedUser?.profilePhoto),
             backgroundColor: Colors.grey,
           ),
           title: Text(

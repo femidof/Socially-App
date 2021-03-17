@@ -57,7 +57,7 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
       userProvider.refreshUser();
 
       _authMethods.setUserState(
-        userId: userProvider.getUser.uid,
+        userId: userProvider.getUser?.uid,
         userState: UserState.Online,
       );
     });
