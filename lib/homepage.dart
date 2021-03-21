@@ -47,8 +47,8 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
       setState(() {
         currentUserId = user.uid;
         initials = Utils.getInitials(user.displayName);
-        print("${user.uid} : wow wow wow");
-        print("${userProvider.getUser.uid} : intereest wow wow");
+        // print("${user.uid} : wow wow wow");
+        // print("${userProvider.getUser.uid} : intereest wow wow");
       });
     });
     WidgetsBinding.instance.addObserver(this);

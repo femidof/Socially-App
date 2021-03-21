@@ -33,14 +33,12 @@ class FirebaseMethods {
       Message message, User sender, User receiver) async {
     var map = message.toMap();
 
-    // final CollectionReference _userCollection = firestore.collection('users');
-
     await _messageCollection
         .document(message.senderId)
         .collection(message.receiverId)
         .add(map);
 
-    addToContact(senderId: message.senderId, receiverId: message.senderId);
+    addToContact(senderId: message.senderId, receiverId: message.receiverId);
 
     return await _messageCollection
         .document(message.receiverId)
@@ -66,8 +64,8 @@ class FirebaseMethods {
     currentTime,
   ) async {
     DocumentSnapshot senderSnapshot = await getContactsDocument(
-      of: receiverId,
-      forContact: senderId,
+      of: senderId,
+      forContact: receiverId,
     ).get();
     if (!senderSnapshot.exists) {
       //doesnt exit
@@ -78,8 +76,8 @@ class FirebaseMethods {
       var receiverMap = receiverContact.toMap(receiverContact);
 
       await getContactsDocument(
-        of: receiverId,
-        forContact: senderId,
+        of: senderId,
+        forContact: receiverId,
       ).setData(receiverMap);
     }
   }
@@ -172,6 +170,7 @@ class FirebaseMethods {
     }
   }
 
+  ///adds Image message to db
   void setImageMsg(String url, String receiverId, String senderId) async {
     Message _message;
 
@@ -185,7 +184,7 @@ class FirebaseMethods {
     );
     var map = _message.toImageMap();
 
-    //set to db
+    //adds messages to db
     await _messageCollection
         .document(_message.senderId)
         .collection(_message.receiverId)
@@ -214,10 +213,4 @@ class FirebaseMethods {
       return null;
     }
   }
-
-  // syncData() async {
-  //   var user = await auth.currentUser();
-  //   firestore.collection("user").document(user.uid);
-  //   auth.
-  // }
 }

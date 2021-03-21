@@ -437,7 +437,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       Icons.send,
                       size: 15,
                     ),
-                    onPressed: () => {sendMessage()},
+                    onPressed: sendMessage,
                   ))
               : Container()
         ],
@@ -445,7 +445,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  pickImage(@required ImageSource source) async {
+  pickImage(ImageSource source) async {
     File selectedImage = await Utils.pickImage(source: source);
     meth.uploadImage(
       image: selectedImage,
