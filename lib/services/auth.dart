@@ -59,7 +59,8 @@ class AuthService with ChangeNotifier {
       String phoneNumber) async {
     _auth.signInWithCredential(authCreds);
     await _auth.signInWithCredential(authCreds);
-    await createUserInFirestore(context, phoneNumber);
+    // await createUserInFirestore(context, phoneNumber);
+    handleAuth();
     notifyListeners();
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
@@ -119,7 +120,6 @@ class AuthService with ChangeNotifier {
 
   void setUserState({@required String userId, @required UserState userState}) {
     int stateNum = Utils.stateToNum(userState);
-
     _userCollection.document(userId).updateData({"state": stateNum});
   }
 

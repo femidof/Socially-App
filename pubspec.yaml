@@ -41,12 +41,13 @@ dependencies:
   shimmer: ^1.1.1
   provider: ^4.0.4
   flutter_spinkit: ^4.1.2+1
-  country_pickers: ^1.2.0
-  gradient_app_bar: ^0.0.1
+  country_pickers: ^2.0.0
+  new_gradient_app_bar: ^0.1.4
   emoji_picker: ^0.1.0
   image_picker: ^0.6.5+2
   path_provider: ^1.6.7
   firebase_storage: ^3.1.5
+  full_screen_image: any
 
   # Agora SDK
   # agora_rtc_engine: ^1.0.10

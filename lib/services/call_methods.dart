@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:socially/models/call.dart';
 import 'package:socially/shared/constants/strings.dart';
 // import 'package:socially/';
@@ -28,10 +29,11 @@ class CallMethods {
     }
   }
 
-  Future<bool> endCall({Call call}) async {
+  Future<bool> endCall({Call call, BuildContext context}) async {
     try {
       await callCollection.document(call.callerId).delete();
       await callCollection.document(call.receiverId).delete();
+      Navigator.pop(context);
       return true;
     } catch (e) {
       print(e);

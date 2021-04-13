@@ -20,12 +20,17 @@ class LastMessageContainer extends StatelessWidget {
             return SizedBox(
               width: MediaQuery.of(context).size.width * 0.6,
               child: Text(
-                message.message,
+                message.message == "IMAGE"
+                    ? " " + message.message.toLowerCase()
+                    : message.message,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 14,
+                  fontStyle: message.message == "IMAGE"
+                      ? FontStyle.italic
+                      : FontStyle.normal,
                 ),
               ),
             );

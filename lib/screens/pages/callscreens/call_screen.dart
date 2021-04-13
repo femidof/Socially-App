@@ -324,6 +324,8 @@ class _CallScreenState extends State<CallScreen> {
           RawMaterialButton(
             onPressed: () => callMethods.endCall(
               call: widget.call,
+              context:
+                  context, //i added this cos its not popping after hangin up
             ),
             child: Icon(
               Icons.call_end,

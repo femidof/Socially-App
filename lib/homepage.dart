@@ -34,9 +34,10 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
   int pageIndex = 0;
   UserProvider userProvider;
   String currentUserId;
+  String currentUserIdAuth;
   String initials;
   AuthService _authMethods = AuthService();
-
+  FirebaseAuth _auth = FirebaseAuth.instance;
   getUid() {}
 
   @override
@@ -52,12 +53,14 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
       });
     });
     WidgetsBinding.instance.addObserver(this);
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
       userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.refreshUser();
-
+      var omo = await _auth.currentUser();
+      String oommoo = omo.uid;
+      // print("testing 123: $oommoo ");
       _authMethods.setUserState(
-        userId: userProvider.getUser?.uid,
+        userId: oommoo,
         userState: UserState.Online,
       );
     });
@@ -76,39 +79,48 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    String currentUserId =
-        (userProvider != null && userProvider.getUser != null)
-            ? userProvider.getUser.uid
-            : "";
+    String currentUserId;
+    methods.getUserDetails().then((user) {
+      setState(() {
+        currentUserId = user.uid;
+        initials = Utils.getInitials(user.displayName);
+        // print("${user.uid} : wow wow wow");
+        // print("${userProvider.getUser.uid} : intereest wow wow");
+      });
+    });
     super.didChangeAppLifecycleState(state);
     switch (state) {
       case AppLifecycleState.resumed:
+        // print("Current User: $currentUserId");
         currentUserId != null
-            ? _authMethods.setUserState(
+            ? _authMethods?.setUserState(
                 userId: currentUserId,
                 userState: UserState.Online,
               )
             : print("resumed state");
         break;
       case AppLifecycleState.inactive:
+        // print("Current User: $currentUserId");
         currentUserId != null
-            ? _authMethods.setUserState(
+            ? _authMethods?.setUserState(
                 userId: currentUserId,
                 userState: UserState.Offline,
               )
             : print("inactive state");
         break;
       case AppLifecycleState.paused:
+        // print("Current User: $currentUserId");
         currentUserId != null
-            ? _authMethods.setUserState(
+            ? _authMethods?.setUserState(
                 userId: currentUserId,
                 userState: UserState.Waiting,
               )
             : print("paused state");
         break;
       case AppLifecycleState.detached:
+        // print("Current User: $currentUserId");
         currentUserId != null
-            ? _authMethods.setUserState(
+            ? _authMethods?.setUserState(
                 userId: currentUserId,
                 userState: UserState.Offline,
               )

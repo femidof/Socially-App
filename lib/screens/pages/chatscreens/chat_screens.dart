@@ -5,6 +5,7 @@ import 'package:emoji_picker/emoji_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:socially/components/firebase_methods.dart';
@@ -17,6 +18,7 @@ import 'package:socially/models/widgets/progress_bar.dart';
 import 'package:socially/provider/image_upload_provider.dart';
 import 'package:socially/screens/pages/callscreens/pickup/pickup_layout.dart';
 import 'package:socially/screens/pages/chatscreens/widgets/cached_images.dart';
+import 'package:socially/screens/pages/widgets/online_dot_indicator.dart';
 import 'package:socially/utils/call_utilities.dart';
 import 'package:socially/utils/permissions.dart';
 import 'package:socially/utils/universal_variables.dart';
@@ -453,6 +455,7 @@ class _ChatScreenState extends State<ChatScreen> {
       senderId: _currentUserId,
       imageUploadProvider: _imageUploadProvider,
     );
+    Navigator.maybePop(context);
   }
 
   sendMessage() {
@@ -472,6 +475,19 @@ class _ChatScreenState extends State<ChatScreen> {
     meth.addMessageToDb(_message, sender, widget.receiver);
   }
 
+  showFullScreenImage() => FullScreenWidget(
+        child: Hero(
+          tag: "customTag",
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              widget.receiver.profilePhoto,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ),
+      );
+
   CustomAppBar customAppBar(context) {
     return CustomAppBar(
       leading: IconButton(
@@ -486,14 +502,19 @@ class _ChatScreenState extends State<ChatScreen> {
       title: Row(
         children: <Widget>[
           CircleAvatar(
-            backgroundImage: NetworkImage(widget.receiver.profilePhoto),
+            child: showFullScreenImage(),
+            // backgroundImage: NetworkImage(widget.receiver.profilePhoto),
           ),
           SizedBox(
-            width: 10,
+            width: 12,
           ),
           Text(
             widget.receiver.displayName,
           ),
+          SizedBox(
+            width: 16,
+          ),
+          OnlineDotIndicator(uid: widget.receiver.uid),
         ],
       ),
       actions: <Widget>[

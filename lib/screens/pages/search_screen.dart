@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/custom_tile.dart';
@@ -35,9 +35,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   searchAppBar(BuildContext context) {
-    return GradientAppBar(
-      backgroundColorStart: UniversalVariables.gradientColorStarthmm,
-      backgroundColorEnd: UniversalVariables.gradientColorEndhmm,
+    return NewGradientAppBar(
+      gradient: LinearGradient(colors: [
+        UniversalVariables.gradientColorStarthmm,
+        UniversalVariables.gradientColorEndhmm,
+      ]),
+      // backgroundColorStart: UniversalVariables.gradientColorStarthmm,
+      // backgroundColorEnd: UniversalVariables.gradientColorEndhmm,
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () => Navigator.pop(context),
