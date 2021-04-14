@@ -39,7 +39,17 @@ class FirebaseMethods {
         .add(map);
 
     addToContact(senderId: message.senderId, receiverId: message.receiverId);
-
+    // add messaged last in contact for sorting
+    _userCollection
+        .document(message.senderId)
+        .collection(CONTACTS_COLLECTION)
+        .document(message.receiverId)
+        .updateData({"last_message_at": Timestamp.now()});
+    _userCollection
+        .document(message.receiverId)
+        .collection(CONTACTS_COLLECTION)
+        .document(message.senderId)
+        .updateData({"last_message_at": Timestamp.now()});
     return await _messageCollection
         .document(message.receiverId)
         .collection(message.senderId)
@@ -107,7 +117,7 @@ class FirebaseMethods {
   Stream<QuerySnapshot> fetchContacts({String userId}) => _userCollection
       .document(userId)
       .collection(CONTACTS_COLLECTION)
-      // .orderBy("last_message_at")
+      .orderBy("last_message_at", descending: true)
       .snapshots();
 
   Stream<QuerySnapshot> fetchLastMessageBetween({
