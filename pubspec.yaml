@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  agora_rtc_engine: ^3.3.3
   cached_network_image: ^2.2.0
   cloud_firestore: any
   country_pickers: ^2.0.0
@@ -26,14 +27,15 @@ dependencies:
   emoji_picker: ^0.1.0
   firebase_auth: null
   firebase_dynamic_links: ^0.5.0+11
+  firebase_messaging: 6.0.13
   firebase_storage: ^3.1.5
   flutter_sms: ^2.0.1+2
   flutter_spinkit: ^4.1.2+1
+  fluttertoast: ^8.0.3
   full_screen_image: any
   geolocator: ^5.3.1
   image: ^2.1.18
   image_picker: ^0.6.5+2
-  # image_share: any
   new_gradient_app_bar: ^0.1.4
   page_transition: ^1.1.5
   path_provider: ^1.6.7
