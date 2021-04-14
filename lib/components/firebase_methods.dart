@@ -107,6 +107,7 @@ class FirebaseMethods {
   Stream<QuerySnapshot> fetchContacts({String userId}) => _userCollection
       .document(userId)
       .collection(CONTACTS_COLLECTION)
+      // .orderBy("last_message_at")
       .snapshots();
 
   Stream<QuerySnapshot> fetchLastMessageBetween({

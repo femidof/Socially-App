@@ -305,11 +305,13 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: ListView(
                     children: <Widget>[
                       ModalTile(
-                        title: "Media",
-                        subtitle: "Share Photos and Video",
-                        icon: Icons.image,
-                        onTap: () => pickImage(ImageSource.gallery),
-                      ),
+                          title: "Media",
+                          subtitle: "Share Photos and Video",
+                          icon: Icons.image,
+                          onTap: () async {
+                            Navigator.maybePop(context);
+                            await pickImage(ImageSource.gallery);
+                          }),
                       ModalTile(
                         title: "File",
                         subtitle: "Share files",
@@ -370,33 +372,38 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Stack(
               alignment: Alignment.centerRight,
               children: <Widget>[
-                TextField(
-                  controller: textFieldController,
-                  focusNode: textFieldFocus,
-                  onTap: () => hideEmojiContainer(),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  onChanged: (val) {
-                    (val.length > 0 && val.trim() != "")
-                        ? setWritingTo(true)
-                        : setWritingTo(false);
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Type a message",
-                    hintStyle: TextStyle(
-                      color: UniversalVariables.greyColor,
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    maxLines: null,
+                    controller: textFieldController,
+                    focusNode: textFieldFocus,
+                    onTap: () => hideEmojiContainer(),
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(50.0),
-                        ),
-                        borderSide: BorderSide.none),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    filled: true,
-                    fillColor: UniversalVariables.separatorColor,
-                    // suffixIcon:
+                    onChanged: (val) {
+                      (val.length > 0 && val.trim() != "")
+                          ? setWritingTo(true)
+                          : setWritingTo(false);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Type a message",
+                      hintStyle: TextStyle(
+                        color: UniversalVariables.greyColor,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(50.0),
+                          ),
+                          borderSide: BorderSide.none),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      filled: true,
+                      fillColor: UniversalVariables.separatorColor,
+                      // suffixIcon:
+                    ),
                   ),
                 ),
                 IconButton(
@@ -455,7 +462,6 @@ class _ChatScreenState extends State<ChatScreen> {
       senderId: _currentUserId,
       imageUploadProvider: _imageUploadProvider,
     );
-    Navigator.maybePop(context);
   }
 
   sendMessage() {
