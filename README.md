@@ -1,5 +1,6 @@
 # socially
 
+
 This is a social networking app and it currently full of bugs. Needs fixing with the providers, and authentications. otherwise the chatting and image sending works fine. and also an integration of video calling. Currently testing only on android
 
 ## Getting Started
@@ -39,6 +40,7 @@ Add the following keys to your Info.plist file, located in <project root>/ios/Ru
 NSPhotoLibraryUsageDescription - describe why your app needs permission for the photo library. This is called Privacy - Photo Library Usage Description in the visual editor.
 NSCameraUsageDescription - describe why your app needs access to the camera. This is called Privacy - Camera Usage Description in the visual editor.
 NSMicrophoneUsageDescription - describe why your app needs access to the microphone, if you intend to record videos. This is called Privacy - Microphone Usage Description in the visual editor.
+
 
 ## ScreenShots
 

@@ -32,6 +32,7 @@ class AuthService with ChangeNotifier {
             return SetupPage(
               user: user,
             );
+
           } else {
             return GetStarted();
             // return MyHome();
@@ -67,6 +68,7 @@ class AuthService with ChangeNotifier {
     // await createUserInFirestore(context, phoneNumber);
     handleAuth();
     notifyListeners();
+
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
   }
@@ -78,7 +80,7 @@ class AuthService with ChangeNotifier {
     DocumentSnapshot doc = await usersRef.document(user.uid.toString()).get();
     final DateTime timestamp = DateTime.now();
     var userPr = Provider.of<User>(context);
-
+// User get userPr => User.fromDocument(doc);
     if (!doc.exists) {
       print("Document Doesn't Exist");
       //if not exist go to create account page
@@ -108,6 +110,7 @@ class AuthService with ChangeNotifier {
     print(currentUser);
     print(currentUser.username);
     userPr = currentUser;
+    return userPr;
     // Navigator.pop(context);
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
@@ -119,7 +122,9 @@ class AuthService with ChangeNotifier {
         verificationId: verId, smsCode: smsCode);
     await signIn(authCreds, context, phoneNumber);
 
+
     // createUserInFirestore(context);
+
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
   }

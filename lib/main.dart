@@ -40,7 +40,13 @@ class BaseStart extends StatelessWidget {
             '/chat_list': (context) => ChatListScreen(),
           },
           home: Wrapper(),
+
         ),
+        initialRoute: '/',
+        routes: {
+          '/search_screen': (context) => SearchScreen(),
+        },
+        home: Wrapper(),
       ),
     );
   }

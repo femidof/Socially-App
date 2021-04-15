@@ -533,6 +533,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 ? CallUtils.dial(
                     from: sender, to: widget.receiver, context: context)
                 : print("Permission not granted");
+
           },
         ),
         IconButton(

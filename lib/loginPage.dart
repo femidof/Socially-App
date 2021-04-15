@@ -30,16 +30,26 @@ class _LoginPageState extends State<LoginPage> {
 //  final FirebaseAuth _auth = FirebaseAuth.instance;
   Country _selectedDialogCountry =
       CountryPickerUtils.getCountryByPhoneCode('1');
+  // User get userP => User.fromDocument(doc);
 
   @override
   void initState() {
     // TODO: implement initState
+
+
+    final userP = Provider.of<User>(context);
+    if (userP != null) {
+      print("so it is here???");
+      Navigator.pushReplacement(context,
+          PageTransition(type: PageTransitionType.fade, child: MyHome()));
+    }
+
     super.initState();
   }
 
-  Future<void> verifyPhone(phoneNumber) async {
+  Future verifyPhone(phoneNumber) async {
     final PhoneVerificationCompleted verified = (AuthCredential authResult) {
-      AuthService().signIn(authResult, context, phoneNumber);
+      userP = AuthService().signIn(authResult, context, phoneNumber);
     };
 
     final PhoneVerificationFailed verificationfailed =
@@ -65,6 +75,7 @@ class _LoginPageState extends State<LoginPage> {
         verificationFailed: verificationfailed,
         codeSent: smsSent,
         codeAutoRetrievalTimeout: autoTimeout);
+    return userP;
   }
 
   Widget _buildDialogItem(Country country) => Row(
@@ -240,10 +251,11 @@ class _LoginPageState extends State<LoginPage> {
                           setState(() {
                             print(mainPhoneNumber);
                             // codeSent = codeSent;
-                            codeSent
+                            userP = codeSent
                                 ? AuthService().signInWithOTP(smsCode,
                                     verificationId, context, mainPhoneNumber)
                                 : verifyPhone(mainPhoneNumber);
+                            // notifyListeners();
                             print("Works here");
                             if (userP == null) {
                               print("Error In System Process");
