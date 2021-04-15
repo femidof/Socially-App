@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-class ProgressBar {
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
+class ProgressBar {
   static circularProgress() {
     return Container(
       alignment: Alignment.center,
@@ -11,11 +12,22 @@ class ProgressBar {
     );
   }
 
- static linearProgress() {
+  static linearProgress() {
     return Container(
       padding: EdgeInsets.only(bottom: 10.0),
       child: LinearProgressIndicator(
         valueColor: AlwaysStoppedAnimation(Colors.purple[600]),
+      ),
+    );
+  }
+
+  static circularStylishProgress() {
+    return Container(
+      color: Color.fromRGBO(3, 9, 23, 1),
+      alignment: Alignment.center,
+      padding: EdgeInsets.all(10.0),
+      child: SpinKitDoubleBounce(
+        color: Colors.purple[600],
       ),
     );
   }

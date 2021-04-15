@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:socially/models/call.dart';
+import 'package:socially/models/widgets/progress_bar.dart';
 import 'package:socially/provider/user_provider.dart';
 import 'package:socially/screens/pages/callscreens/pickup/pickup_screen.dart';
 import 'package:socially/services/call_methods.dart';
@@ -30,7 +31,7 @@ class PickupLayout extends StatelessWidget {
           )
         : Scaffold(
             body: Center(
-              child: CircularProgressIndicator(),
+              child: ProgressBar.circularStylishProgress(),
             ),
           );
   }

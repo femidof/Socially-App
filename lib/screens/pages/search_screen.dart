@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:gradient_app_bar/gradient_app_bar.dart';
+import 'package:new_gradient_app_bar/new_gradient_app_bar.dart';
 import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/custom_tile.dart';
@@ -35,9 +35,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   searchAppBar(BuildContext context) {
-    return GradientAppBar(
-      backgroundColorStart: UniversalVariables.gradientColorStarthmm,
-      backgroundColorEnd: UniversalVariables.gradientColorEndhmm,
+    return NewGradientAppBar(
+      gradient: LinearGradient(colors: [
+        UniversalVariables.gradientColorStarthmm,
+        UniversalVariables.gradientColorEndhmm,
+      ]),
+      // backgroundColorStart: UniversalVariables.gradientColorStarthmm,
+      // backgroundColorEnd: UniversalVariables.gradientColorEndhmm,
       leading: IconButton(
         icon: Icon(Icons.arrow_back, color: Colors.white),
         onPressed: () => Navigator.pop(context),
@@ -84,7 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   buildSuggestions(String query) {
-    final List<User> suggestionList = query.isEmpty
+    List<User> suggestionList = query.isEmpty
         ? []
         : userList != null
             ? userList.where((User user) {
@@ -104,21 +108,21 @@ class _SearchScreenState extends State<SearchScreen> {
       itemCount: suggestionList.length,
       itemBuilder: ((context, index) {
         User searchedUser = User(
-            uid: suggestionList[index].uid,
-            profilePhoto: suggestionList[index].profilePhoto,
-            displayName: suggestionList[index].displayName,
-            username: suggestionList[index].username);
+            uid: suggestionList[index]?.uid,
+            profilePhoto: suggestionList[index]?.profilePhoto,
+            displayName: suggestionList[index]?.displayName,
+            username: suggestionList[index]?.username);
 
         return CustomTile(
           mini: false,
           onTap: () {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
                     builder: (context) => ChatScreen(receiver: searchedUser)));
           },
           leading: CircleAvatar(
-            backgroundImage: NetworkImage(searchedUser.profilePhoto),
+            backgroundImage: NetworkImage(searchedUser?.profilePhoto),
             backgroundColor: Colors.grey,
           ),
           title: Text(

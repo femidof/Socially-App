@@ -8,7 +8,7 @@ class User {
   String username;
   String status;
   String bio;
-  String state;
+  int state;
   String profilePhoto;
 
   User({
@@ -25,15 +25,15 @@ class User {
 
   Map toMap(User user) {
     var data = Map<String, dynamic>();
-    data['uid'] = user.uid;
-    data['displayName'] = user.displayName;
-    data['phoneNumber'] = user.phoneNumber;
-    data['email'] = user.email;
-    data['username'] = user.username;
-    data["status"] = user.status;
-    data["state"] = user.state;
-    data["bio"] = user.bio;
-    data["profilePhoto"] = user.profilePhoto;
+    data['uid'] = user?.uid;
+    data['displayName'] = user?.displayName;
+    data['phoneNumber'] = user?.phoneNumber;
+    data['email'] = user?.email;
+    data['username'] = user?.username;
+    data["status"] = user?.status;
+    data["state"] = user?.state;
+    data["bio"] = user?.bio;
+    data["profilePhoto"] = user?.profilePhoto;
     return data;
   }
 
@@ -51,7 +51,7 @@ class User {
 
   factory User.fromDocument(DocumentSnapshot doc) {
     return User(
-      uid: doc['id'],
+      uid: doc['uid'],
       email: doc['email'],
       displayName: doc['displayName'],
       phoneNumber: doc['phoneNumber'],

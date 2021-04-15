@@ -20,11 +20,10 @@ class _TimelineState extends State<Timeline> {
 
   @override
   Widget build(context) {
-    return PickupLayout(
-      scaffold: Scaffold(
-        appBar: header(context, "Socially"),
-        body: ProgressBar.circularProgress(),
-      ),
+    return Scaffold(
+      backgroundColor: Color.fromRGBO(3, 9, 23, 1),
+      appBar: header(context, "Socially"),
+      body: ProgressBar.circularStylishProgress(),
     );
   }
 }

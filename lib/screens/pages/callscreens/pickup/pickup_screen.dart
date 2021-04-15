@@ -43,7 +43,7 @@ class PickupScreen extends StatelessWidget {
               height: 15,
             ),
             Text(
-              call.callerName,
+              call?.callerName ?? "Unknown Caller",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

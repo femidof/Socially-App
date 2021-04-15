@@ -18,6 +18,11 @@ samples, guidance on mobile development, and a full API reference.
 
 TODO
 
+Image Cropping for image upload on signup || setup_page.dart
+
+SIGN UP AND SIGNIN cleanup
+
+lastmessage time
 
 FIREBASE SETUP
 
@@ -37,14 +42,11 @@ NSCameraUsageDescription - describe why your app needs access to the camera. Thi
 NSMicrophoneUsageDescription - describe why your app needs access to the microphone, if you intend to record videos. This is called Privacy - Microphone Usage Description in the visual editor.
 
 
-
 ## ScreenShots
 
-
-
-![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20messaging.png) 
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20messaging.png)
 ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20screen.png)
-![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20share.png) 
+![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20share.png)
 ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chat%20view.png)
 ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/chatscreen.png)
 ![Image description](https://github.com/femidof/Socially-App/blob/master/screenshots/search%20page.png)

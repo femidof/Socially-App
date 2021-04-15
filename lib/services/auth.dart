@@ -6,22 +6,33 @@ import 'package:provider/provider.dart';
 import 'package:socially/homepage.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/screens/pages/create_account.dart';
+import 'package:socially/screens/pages/timeline.dart';
+import 'package:socially/screens/pages/widgets/user_state.dart';
+import 'package:socially/utils/utilities.dart';
 import 'package:socially/welcome_screen.dart';
+import 'package:socially/setup_page.dart';
 
-class AuthService {
+class AuthService with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
   User currentUser;
-//  Firestore firestore =
+  static final CollectionReference _userCollection =
+      firestore.collection("users");
+
   //Handles Auth
-  final usersRef = Firestore.instance.collection('user');
+  final usersRef = Firestore.instance.collection('users');
+  // final usersRef = Firestore.instance.collection('user');
 
   handleAuth() {
     return StreamBuilder(
         stream: _auth.onAuthStateChanged,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            _userFromFirebaseUser(snapshot.data); //* new changes to test
-            return MyHome();
+            FirebaseUser user = snapshot.data;
+
+            return SetupPage(
+              user: user,
+            );
+
           } else {
             return GetStarted();
             // return MyHome();
@@ -54,7 +65,9 @@ class AuthService {
       String phoneNumber) async {
     _auth.signInWithCredential(authCreds);
     await _auth.signInWithCredential(authCreds);
-    return await createUserInFirestore(context, phoneNumber);
+    // await createUserInFirestore(context, phoneNumber);
+    handleAuth();
+    notifyListeners();
 
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
@@ -63,6 +76,7 @@ class AuthService {
   Future createUserInFirestore(BuildContext context, String phoneNumber) async {
     //check if user exists in users collection in  database according to their ID
     final FirebaseUser user = await _auth.currentUser();
+
     DocumentSnapshot doc = await usersRef.document(user.uid.toString()).get();
     final DateTime timestamp = DateTime.now();
     var userPr = Provider.of<User>(context);
@@ -85,7 +99,7 @@ class AuthService {
         "bio": "",
         "timestamp": timestamp,
         "state": "",
-        "status": "",
+        "status": null,
         "phoneNumber": phoneNumber,
         "post": 0,
         "isAdmin": false
@@ -107,8 +121,19 @@ class AuthService {
     AuthCredential authCreds = PhoneAuthProvider.getCredential(
         verificationId: verId, smsCode: smsCode);
     await signIn(authCreds, context, phoneNumber);
-    return await createUserInFirestore(context, phoneNumber);
+
+
+    // createUserInFirestore(context);
+
     // Navigator.pushReplacement(context,
     //     PageTransition(type: PageTransitionType.fade, child: MyHome()));
   }
+
+  void setUserState({@required String userId, @required UserState userState}) {
+    int stateNum = Utils.stateToNum(userState);
+    _userCollection.document(userId).updateData({"state": stateNum});
+  }
+
+  Stream<DocumentSnapshot> getUserStream({@required String uid}) =>
+      _userCollection.document(uid).snapshots();
 }

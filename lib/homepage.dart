@@ -5,37 +5,65 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/main.dart';
 import 'package:socially/provider/user_provider.dart';
 import 'package:socially/screens/pages/activity_feed.dart';
 import 'package:socially/screens/pages/callscreens/pickup/pickup_layout.dart';
 import 'package:socially/screens/pages/chat_list_screen.dart';
+import 'package:socially/screens/pages/chat_page.dart';
 import 'package:socially/screens/pages/contact_logs.dart';
 import 'package:socially/screens/pages/profile.dart';
 import 'package:socially/screens/pages/search.dart';
 import 'package:socially/screens/pages/timeline.dart';
 import 'package:socially/screens/pages/upload.dart';
+import 'package:socially/screens/pages/widgets/user_state.dart';
+import 'package:socially/screens/wrapper.dart';
+import 'package:socially/services/auth.dart';
+import 'package:socially/utils/utilities.dart';
+
+final FirebaseMethods methods = FirebaseMethods();
 
 class MyHome extends StatefulWidget {
   @override
   _MyHomeState createState() => _MyHomeState();
 }
 
-class _MyHomeState extends State<MyHome> {
+class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
   String uid = '';
   PageController pageController;
   int pageIndex = 0;
   UserProvider userProvider;
-
+  String currentUserId;
+  String currentUserIdAuth;
+  String initials;
+  AuthService _authMethods = AuthService();
+  FirebaseAuth _auth = FirebaseAuth.instance;
   getUid() {}
 
   @override
   void initState() {
     super.initState();
-
-    SchedulerBinding.instance.addPostFrameCallback((_) {
+    // _auth.signOut();
+    methods.getUserDetails().then((user) {
+      setState(() {
+        currentUserId = user.uid;
+        initials = Utils.getInitials(user.displayName);
+        // print("${user.uid} : wow wow wow");
+        // print("${userProvider.getUser.uid} : intereest wow wow");
+      });
+    });
+    WidgetsBinding.instance.addObserver(this);
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
       userProvider = Provider.of<UserProvider>(context, listen: false);
       userProvider.refreshUser();
+      var omo = await _auth.currentUser();
+      String oommoo = omo.uid;
+      // print("testing 123: $oommoo ");
+      _authMethods.setUserState(
+        userId: oommoo,
+        userState: UserState.Online,
+      );
     });
     pageController = PageController(
         // initialPage: 2,
@@ -50,6 +78,66 @@ class _MyHomeState extends State<MyHome> {
     });
   }
 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    String currentUserId;
+    methods.getUserDetails().then((user) {
+      setState(() {
+        currentUserId = user.uid;
+        initials = Utils.getInitials(user.displayName);
+        // print("${user.uid} : wow wow wow");
+        // print("${userProvider.getUser.uid} : intereest wow wow");
+      });
+    });
+    super.didChangeAppLifecycleState(state);
+    switch (state) {
+      case AppLifecycleState.resumed:
+        // print("Current User: $currentUserId");
+        currentUserId != null
+            ? _authMethods?.setUserState(
+                userId: currentUserId,
+                userState: UserState.Online,
+              )
+            : print("resumed state");
+        break;
+      case AppLifecycleState.inactive:
+        // print("Current User: $currentUserId");
+        currentUserId != null
+            ? _authMethods?.setUserState(
+                userId: currentUserId,
+                userState: UserState.Offline,
+              )
+            : print("inactive state");
+        break;
+      case AppLifecycleState.paused:
+        // print("Current User: $currentUserId");
+        currentUserId != null
+            ? _authMethods?.setUserState(
+                userId: currentUserId,
+                userState: UserState.Waiting,
+              )
+            : print("paused state");
+        break;
+      case AppLifecycleState.detached:
+        // print("Current User: $currentUserId");
+        currentUserId != null
+            ? _authMethods?.setUserState(
+                userId: currentUserId,
+                userState: UserState.Offline,
+              )
+            : print("detached state");
+        break;
+      default:
+    }
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   onPageChanged(int pageIndex) {
     setState(() {
       this.pageIndex = pageIndex;
@@ -60,11 +148,14 @@ class _MyHomeState extends State<MyHome> {
   Widget build(BuildContext context) {
     return PickupLayout(
       scaffold: Scaffold(
-        // backgroundColor: Color.fromRGBO(3, 9, 23, 1),
+        backgroundColor: Color.fromRGBO(3, 9, 23, 1),
+        // Colors.black,
         body: PageView(
           children: <Widget>[
             Container(
-              child: ChatListScreen(),
+              child: ChatListScreen(
+                initials: initials,
+              ),
             ),
             Timeline(),
             // ContactLogs(),
@@ -88,11 +179,12 @@ class _MyHomeState extends State<MyHome> {
           inactiveColor: Colors.grey[400],
           currentIndex: pageIndex,
           onTap: (int pageIndex) {
-            pageController.animateToPage(
-              pageIndex,
-              duration: Duration(milliseconds: 250),
-              curve: Curves.easeInOut,
-            );
+            pageController.jumpToPage(pageIndex);
+            // pageController.animateToPage(
+            //   pageIndex,
+            //   duration: Duration(milliseconds: 1000),
+            //   curve: Curves.easeInOut,
+            // );
           },
           activeColor:
               // Theme.of(context).primaryColor,
@@ -101,25 +193,35 @@ class _MyHomeState extends State<MyHome> {
             BottomNavigationBarItem(
               icon: Icon(Icons.bubble_chart),
               // backgroundColor: Colors.redAccent,
-              // activeIcon:
+              activeIcon: Icon(
+                Icons.bubble_chart,
+                color: Colors.blueAccent,
+              ),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.whatshot),
+              activeIcon: Icon(
+                Icons.whatshot,
+                color: Colors.redAccent,
+              ),
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.filter_list),
-            // ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.photo_camera),
-            // ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.notifications_active),
+              icon: Icon(
+                Icons.notifications,
+              ),
+              activeIcon: Icon(
+                Icons.notifications,
+                color: Colors.greenAccent,
+              ),
             ),
-            // BottomNavigationBarItem(
-            //   icon: Icon(Icons.search),
-            // ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle),
+              icon: Icon(
+                Icons.account_circle,
+              ),
+              activeIcon: Icon(
+                Icons.account_circle,
+                color: Colors.amberAccent,
+              ),
             ),
           ],
         ),
@@ -158,12 +260,5 @@ class _MyHomeState extends State<MyHome> {
         // ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    pageController.dispose();
-    super.dispose();
   }
 }

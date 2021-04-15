@@ -5,6 +5,7 @@ import 'package:emoji_picker/emoji_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:full_screen_image/full_screen_image.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:socially/components/firebase_methods.dart';
@@ -13,9 +14,11 @@ import 'package:socially/models/message.dart';
 import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/appbar.dart';
 import 'package:socially/models/widgets/custom_tile.dart';
+import 'package:socially/models/widgets/progress_bar.dart';
 import 'package:socially/provider/image_upload_provider.dart';
 import 'package:socially/screens/pages/callscreens/pickup/pickup_layout.dart';
 import 'package:socially/screens/pages/chatscreens/widgets/cached_images.dart';
+import 'package:socially/screens/pages/widgets/online_dot_indicator.dart';
 import 'package:socially/utils/call_utilities.dart';
 import 'package:socially/utils/permissions.dart';
 import 'package:socially/utils/universal_variables.dart';
@@ -141,16 +144,18 @@ class _ChatScreenState extends State<ChatScreen> {
       builder: (context, snapshot) {
         if (snapshot.data == null) {
           return Center(
-            child: CircularProgressIndicator(),
+            child:
+                // CircularProgressIndicator(),
+                ProgressBar.circularStylishProgress(),
           );
         }
 
-        // SchedulerBinding.instance.addPostFrameCallback((_) {
-        //   _listScrollController.animateTo(
-        //       _listScrollController.position.minScrollExtent,
-        //       duration: Duration(milliseconds: 250),
-        //       curve: Curves.easeInOut);
-        // });
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          _listScrollController.animateTo(
+              _listScrollController.position.minScrollExtent,
+              duration: Duration(milliseconds: 250),
+              curve: Curves.easeInOut);
+        });
 
         return ListView.builder(
             padding: EdgeInsets.all(10),
@@ -167,7 +172,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget chatMessageItem(DocumentSnapshot snapshot) {
     Message _message = Message.fromMap(snapshot.data);
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 15),
+      margin: EdgeInsets.symmetric(vertical: 0),
       child: Container(
         alignment: _message.senderId == _currentUserId
             ? Alignment.centerRight
@@ -180,7 +185,7 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Widget senderLayout(Message message) {
-    Radius messageRadius = Radius.circular(10);
+    Radius messageRadius = Radius.circular(15);
 
     return Container(
       margin: EdgeInsets.only(top: 12),
@@ -300,36 +305,43 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: ListView(
                     children: <Widget>[
                       ModalTile(
-                        title: "Media",
-                        subtitle: "Share Photos and Video",
-                        icon: Icons.image,
-                        onTap: () => pickImage(ImageSource.gallery),
+                          title: "Media",
+                          subtitle: "Share Photos and Video",
+                          icon: Icons.image,
+                          onTap: () async {
+                            Navigator.maybePop(context);
+                            await pickImage(ImageSource.gallery);
+                          }),
+                      ModalTile(
+                        title: "File",
+                        subtitle: "Share files",
+                        icon: Icons.tab,
+                        onTap: () {},
                       ),
                       ModalTile(
-                          onTap: () {},
-                          title: "File",
-                          subtitle: "Share files",
-                          icon: Icons.tab),
+                        title: "Contact",
+                        subtitle: "Share contacts",
+                        icon: Icons.contacts,
+                        onTap: () {},
+                      ),
                       ModalTile(
-                          onTap: () {},
-                          title: "Contact",
-                          subtitle: "Share contacts",
-                          icon: Icons.contacts),
+                        title: "Location",
+                        subtitle: "Share a location",
+                        icon: Icons.add_location,
+                        onTap: () {},
+                      ),
                       ModalTile(
-                          onTap: () {},
-                          title: "Location",
-                          subtitle: "Share a location",
-                          icon: Icons.add_location),
+                        title: "Schedule Call",
+                        subtitle: "Arrange a skype call and get reminders",
+                        icon: Icons.schedule,
+                        onTap: () {},
+                      ),
                       ModalTile(
-                          onTap: () {},
-                          title: "Schedule Call",
-                          subtitle: "Arrange a skype call and get reminders",
-                          icon: Icons.schedule),
-                      ModalTile(
-                          onTap: () {},
-                          title: "Create Poll",
-                          subtitle: "Share polls",
-                          icon: Icons.poll)
+                        title: "Create Poll",
+                        subtitle: "Share polls",
+                        icon: Icons.poll,
+                        onTap: () {},
+                      ),
                     ],
                   ),
                 ),
@@ -360,33 +372,38 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Stack(
               alignment: Alignment.centerRight,
               children: <Widget>[
-                TextField(
-                  controller: textFieldController,
-                  focusNode: textFieldFocus,
-                  onTap: () => hideEmojiContainer(),
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                  onChanged: (val) {
-                    (val.length > 0 && val.trim() != "")
-                        ? setWritingTo(true)
-                        : setWritingTo(false);
-                  },
-                  decoration: InputDecoration(
-                    hintText: "Type a message",
-                    hintStyle: TextStyle(
-                      color: UniversalVariables.greyColor,
+                Container(
+                  padding: const EdgeInsets.all(8.0),
+                  margin: const EdgeInsets.all(8.0),
+                  child: TextField(
+                    maxLines: null,
+                    controller: textFieldController,
+                    focusNode: textFieldFocus,
+                    onTap: () => hideEmojiContainer(),
+                    style: TextStyle(
+                      color: Colors.white,
                     ),
-                    border: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          const Radius.circular(50.0),
-                        ),
-                        borderSide: BorderSide.none),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                    filled: true,
-                    fillColor: UniversalVariables.separatorColor,
-                    // suffixIcon:
+                    onChanged: (val) {
+                      (val.length > 0 && val.trim() != "")
+                          ? setWritingTo(true)
+                          : setWritingTo(false);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Type a message",
+                      hintStyle: TextStyle(
+                        color: UniversalVariables.greyColor,
+                      ),
+                      border: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(50.0),
+                          ),
+                          borderSide: BorderSide.none),
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                      filled: true,
+                      fillColor: UniversalVariables.separatorColor,
+                      // suffixIcon:
+                    ),
                   ),
                 ),
                 IconButton(
@@ -429,7 +446,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       Icons.send,
                       size: 15,
                     ),
-                    onPressed: () => {sendMessage()},
+                    onPressed: sendMessage,
                   ))
               : Container()
         ],
@@ -437,7 +454,7 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  pickImage(@required ImageSource source) async {
+  pickImage(ImageSource source) async {
     File selectedImage = await Utils.pickImage(source: source);
     meth.uploadImage(
       image: selectedImage,
@@ -464,6 +481,19 @@ class _ChatScreenState extends State<ChatScreen> {
     meth.addMessageToDb(_message, sender, widget.receiver);
   }
 
+  showFullScreenImage() => FullScreenWidget(
+        child: Hero(
+          tag: "customTag",
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Image.network(
+              widget.receiver.profilePhoto,
+              fit: BoxFit.fitWidth,
+            ),
+          ),
+        ),
+      );
+
   CustomAppBar customAppBar(context) {
     return CustomAppBar(
       leading: IconButton(
@@ -477,13 +507,20 @@ class _ChatScreenState extends State<ChatScreen> {
       centerTitle: false,
       title: Row(
         children: <Widget>[
-          CircleAvatar(),
+          CircleAvatar(
+            child: showFullScreenImage(),
+            // backgroundImage: NetworkImage(widget.receiver.profilePhoto),
+          ),
           SizedBox(
-            width: 10,
+            width: 12,
           ),
           Text(
             widget.receiver.displayName,
           ),
+          SizedBox(
+            width: 16,
+          ),
+          OnlineDotIndicator(uid: widget.receiver.uid),
         ],
       ),
       actions: <Widget>[
@@ -495,10 +532,8 @@ class _ChatScreenState extends State<ChatScreen> {
             await Permissions.cameraAndMicrophonePermissionsGranted()
                 ? CallUtils.dial(
                     from: sender, to: widget.receiver, context: context)
-                : Scaffold.of(context).showSnackBar(SnackBar(
-                    content:
-                        Text("Permission not granted to Camera adn Microphone"),
-                  ));
+                : print("Permission not granted");
+
           },
         ),
         IconButton(
