@@ -40,20 +40,21 @@ class FirebaseMethods {
 
     addToContact(senderId: message.senderId, receiverId: message.receiverId);
     // add messaged last in contact for sorting
-    _userCollection
-        .document(message.senderId)
-        .collection(CONTACTS_COLLECTION)
-        .document(message.receiverId)
-        .updateData({"last_message_at": Timestamp.now()});
-    _userCollection
-        .document(message.receiverId)
-        .collection(CONTACTS_COLLECTION)
-        .document(message.senderId)
-        .updateData({"last_message_at": Timestamp.now()});
-    return await _messageCollection
+
+    await _messageCollection
         .document(message.receiverId)
         .collection(message.senderId)
         .add(map);
+    _userCollection
+        .document(message.senderId)
+        .collection(CONTACTS_COLLECTION)
+        .document(message.receiverId)
+        .updateData({"last_message_at": Timestamp.now()});
+    _userCollection
+        .document(message.receiverId)
+        .collection(CONTACTS_COLLECTION)
+        .document(message.senderId)
+        .updateData({"last_message_at": Timestamp.now()});
   }
 
   DocumentReference getContactsDocument({String of, String forContact}) =>

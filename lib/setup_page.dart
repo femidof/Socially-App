@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:socially/homepage.dart';
@@ -23,7 +24,7 @@ class _SetupPageState extends State<SetupPage> {
   double _deviceWidth;
 
   GlobalKey<FormState> _formKey;
-
+  final storage = new FlutterSecureStorage();
   File _image;
 
   String _name;
@@ -38,8 +39,12 @@ class _SetupPageState extends State<SetupPage> {
   @override
   void initState() {
     super.initState();
-
+    setStorage();
     _formKey = GlobalKey<FormState>();
+  }
+
+  setStorage() async {
+    await storage.write(key: "currentUser", value: widget.user.uid);
   }
 
   Widget _headingWidget() {

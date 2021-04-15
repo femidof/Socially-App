@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 // import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/models/contact.dart';
+import 'package:socially/models/user.dart';
 // import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/appbar.dart';
 // import 'package:socially/models/widgets/custom_tile.dart';
@@ -88,15 +90,20 @@ class ChatListContainer extends StatelessWidget {
   final FirebaseMethods _chatMethods = FirebaseMethods();
   @override
   Widget build(BuildContext context) {
-    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    // final storage = new FlutterSecureStorage();
+    // setStorage() async {
+    //   await storage.write(key: "currentUser", value: widget.user.uid);
+    // }
+    final User userProvider = Provider.of<User>(context);
+    print("UserUID   ${userProvider.uid}");
     return Container(
       color: Color.fromRGBO(3, 9, 23, 1),
       child: StreamBuilder<QuerySnapshot>(
-          stream: _chatMethods.fetchContacts(userId: userProvider.getUser.uid),
+          stream: _chatMethods.fetchContacts(userId: userProvider.uid),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var docList = snapshot.data.documents;
-              // print("testing and debuggin ${docList.length}");
+              print("testing and debuggin ${docList.length}");
               if (docList.isEmpty) {
                 return QuietBox();
               }
