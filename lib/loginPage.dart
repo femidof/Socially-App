@@ -8,6 +8,7 @@ import 'package:socially/animations/fadeAnimation.dart';
 import 'package:flutter/material.dart';
 import 'package:socially/homepage.dart';
 import 'package:socially/models/user.dart';
+import 'package:socially/provider/user_provider.dart';
 import 'package:socially/services/auth.dart';
 import 'package:socially/utils/universal_variables.dart';
 
@@ -116,12 +117,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     // var user = Provider.of<StreamProvider>(context);
-    final userP = Provider.of<User>(context);
+    final userP = Provider.of<User>(context, listen: true);
     if (userP != null) {
-      print("so it is here???");
-      // Navigator.pushReplacement(context,
-      //     PageTransition(type: PageTransitionType.fade, child: MyHome())
-      //     );
+      print("so it is here???12333333");
     }
     return Scaffold(
       backgroundColor: Color.fromRGBO(3, 9, 23, 1),
@@ -247,19 +245,27 @@ class _LoginPageState extends State<LoginPage> {
                                     verificationId, context, mainPhoneNumber)
                                 : verifyPhone(mainPhoneNumber);
                             print("Works here");
-                            if (this.userP == null) {
+                            if (userP == null) {
                               print("Error In System Process");
                               // return null;
                             } else {
                               print("${userP.toString()} that is it");
                               print("omgggggg?");
                               print("so it is here???");
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MyHome(),
-                                  ));
+                              // Navigator.pushReplacement(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) => MyHome(),
+                              //     ));
                               // return MyHome();
+                              //
+
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: AuthService().handleAuth()),
+                                  (route) => false);
                             }
                           });
                           print("hello");

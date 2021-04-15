@@ -17,6 +17,12 @@ samples, guidance on mobile development, and a full API reference.
 
 TODO
 
+Image Cropping for image upload on signup || setup_page.dart
+
+SIGN UP AND SIGNIN cleanup
+
+lastmessage time
+
 FIREBASE SETUP
 
 Image Picker plugin for Flutter

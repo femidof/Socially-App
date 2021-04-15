@@ -18,6 +18,7 @@ import 'package:socially/screens/pages/search.dart';
 import 'package:socially/screens/pages/timeline.dart';
 import 'package:socially/screens/pages/upload.dart';
 import 'package:socially/screens/pages/widgets/user_state.dart';
+import 'package:socially/screens/wrapper.dart';
 import 'package:socially/services/auth.dart';
 import 'package:socially/utils/utilities.dart';
 
@@ -43,7 +44,7 @@ class _MyHomeState extends State<MyHome> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-
+    // _auth.signOut();
     methods.getUserDetails().then((user) {
       setState(() {
         currentUserId = user.uid;

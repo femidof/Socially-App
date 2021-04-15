@@ -10,6 +10,7 @@ import 'package:socially/screens/pages/timeline.dart';
 import 'package:socially/screens/pages/widgets/user_state.dart';
 import 'package:socially/utils/utilities.dart';
 import 'package:socially/welcome_screen.dart';
+import 'package:socially/setup_page.dart';
 
 class AuthService with ChangeNotifier {
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -26,7 +27,11 @@ class AuthService with ChangeNotifier {
         stream: _auth.onAuthStateChanged,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData) {
-            return MyHome();
+            FirebaseUser user = snapshot.data;
+
+            return SetupPage(
+              user: user,
+            );
           } else {
             return GetStarted();
             // return MyHome();
@@ -69,6 +74,7 @@ class AuthService with ChangeNotifier {
   Future createUserInFirestore(BuildContext context, String phoneNumber) async {
     //check if user exists in users collection in  database according to their ID
     final FirebaseUser user = await _auth.currentUser();
+
     DocumentSnapshot doc = await usersRef.document(user.uid.toString()).get();
     final DateTime timestamp = DateTime.now();
     var userPr = Provider.of<User>(context);

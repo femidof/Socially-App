@@ -32,6 +32,7 @@ dependencies:
   flutter_sms: ^2.0.1+2
   flutter_spinkit: ^4.1.2+1
   fluttertoast: ^8.0.3
+  font_awesome_flutter: ^9.0.0
   full_screen_image: any
   geolocator: ^5.3.1
   image: ^2.1.18
