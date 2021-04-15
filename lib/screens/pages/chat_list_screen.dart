@@ -94,12 +94,12 @@ class ChatListContainer extends StatelessWidget {
     // setStorage() async {
     //   await storage.write(key: "currentUser", value: widget.user.uid);
     // }
-    final User userProvider = Provider.of<User>(context);
-    print("UserUID   ${userProvider.uid}");
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
+    print("UserUID   ${userProvider.getUser.uid}");
     return Container(
       color: Color.fromRGBO(3, 9, 23, 1),
       child: StreamBuilder<QuerySnapshot>(
-          stream: _chatMethods.fetchContacts(userId: userProvider.uid),
+          stream: _chatMethods.fetchContacts(userId: userProvider.getUser.uid),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               var docList = snapshot.data.documents;
