@@ -6,6 +6,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:socially/components/firebase_methods.dart';
 import 'package:socially/models/contact.dart';
+import 'package:socially/services/ar_service.dart';
 import 'package:socially/models/user.dart';
 // import 'package:socially/models/user.dart';
 import 'package:socially/models/widgets/appbar.dart';
@@ -50,6 +51,19 @@ class ChatListScreen extends StatelessWidget {
         //   ),
         //   onPressed: () {},
         // ),
+        IconButton(
+          icon: Icon(
+            Icons.camera_roll,
+            color: Colors.blueAccent,
+          ),
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return ARService();
+              },
+            ));
+          },
+        ),
         IconButton(
           icon: Icon(
             Icons.search,
