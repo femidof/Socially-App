@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "644140426285",
+    "firebase_url": "https://socially-f2c81.firebaseio.com",
+    "project_id": "socially-f2c81",
+    "storage_bucket": "socially-f2c81.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:644140426285:android:222691fb469763e7b6c4a4",
+        "android_client_info": {
+          "package_name": "com.femidof.socially"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "644140426285-1l1dfe4mv2lib1duf6j5qb339qb68in3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.femidof.socially",
+            "certificate_hash": "e9092011d55f9c0fa2ba6003098ba814ad208857"
+          }
+        },
+        {
+          "client_id": "644140426285-e0krk8v6qrdvb8hkftpmc1rjfek7i0fl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.femidof.socially",
+            "certificate_hash": "5b81158f63821618dbeca3a19b6155aa435ff4bd"
+          }
+        },
+        {
+          "client_id": "644140426285-hicge1p7pt8g6m74s5sc3fbhpv61k741.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwa-q6FroRabFMumCGwfrw7uGl_zdvdR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "644140426285-hicge1p7pt8g6m74s5sc3fbhpv61k741.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "644140426285-porkbdcpjtj045sko5no5anrf14t8sae.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.socially"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

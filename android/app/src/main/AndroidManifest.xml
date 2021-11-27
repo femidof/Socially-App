@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.socially">
+    package="com.femidof.socially">
    <application
         android:label="socially"
         android:icon="@mipmap/ic_launcher">
