@@ -53,6 +53,7 @@ dependencies:
   mime: ^1.0.1
   path_provider: ^2.0.7
   pinput: ^1.2.0
+  get_storage: ^2.0.3
 
 dev_dependencies:
   flutter_lints: ^1.0.0

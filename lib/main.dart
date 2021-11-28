@@ -1,12 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:socially/screens/auth/login.dart';
 import 'package:socially/screens/home.dart';
+import 'package:socially/shared/theme.dart';
 import 'package:socially/shared/universal_variables.dart';
+
+import 'services/theme_service.dart';
 // import 'demo/rooms.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
@@ -15,6 +20,7 @@ import 'package:socially/shared/universal_variables.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await GetStorage.init();
   // runApp(const BaseStart());
   runApp(MyApp());
 }
@@ -117,13 +123,12 @@ class MyApp extends StatelessWidget {
   final FirebaseAuth auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: UniversalVariables.gradientColorEndhmm,
-        primarySwatch: Colors.blue,
-      ),
+      theme: Themes.light,
+      darkTheme: Themes.dark,
+      themeMode: ThemeService().theme,
       home: auth.currentUser == null ? const LoginScreen() : const HomeScreen(),
     );
   }
