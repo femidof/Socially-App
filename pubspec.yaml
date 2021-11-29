@@ -41,7 +41,7 @@ dependencies:
   flutter_chat_ui: ^1.5.2
   flutter_firebase_chat_core: ^1.5.0
   http: ^0.13.4
-  image_picker: ^0.8.4+3 #ios todo
+  #image_picker: ^0.8.4+3 #ios todo
   intl_phone_field: ^2.0.0
   otp_text_field: ^1.1.1
   get: ^4.3.8
@@ -54,6 +54,7 @@ dependencies:
   path_provider: ^2.0.7
   pinput: ^1.2.0
   get_storage: ^2.0.3
+  shared_preferences: any
 
 dev_dependencies:
   flutter_lints: ^1.0.0

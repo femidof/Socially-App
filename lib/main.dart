@@ -9,9 +9,10 @@ import 'package:otp_text_field/style.dart';
 import 'package:socially/screens/auth/login.dart';
 import 'package:socially/screens/home.dart';
 import 'package:socially/shared/theme.dart';
-import 'package:socially/shared/universal_variables.dart';
+// import 'package:socially/shared/universal_variables.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 
-import 'services/theme_service.dart';
+// import 'services/theme_service.dart';
 // import 'demo/rooms.dart';
 // import 'package:google_fonts/google_fonts.dart';
 
@@ -117,8 +118,28 @@ void main() async {
 //   }
 // }
 
+// ThemeData _darkTheme = ThemeData(
+//     accentColor: Colors.red,
+//     brightness: Brightness.dark,
+//     primaryColor: Colors.amber,
+//     buttonTheme: ButtonThemeData(
+//       buttonColor: Colors.amber,
+//       disabledColor: Colors.grey,
+//     ));
+
+// ThemeData _lightTheme = ThemeData(
+//     accentColor: Colors.pink,
+//     brightness: Brightness.light,
+//     primaryColor: Colors.blue,
+//     buttonTheme: ButtonThemeData(
+//       buttonColor: Colors.blue,
+//       disabledColor: Colors.grey,
+//     ));
+
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key) {
+    Themees().getThemeStatus();
+  }
 
   final FirebaseAuth auth = FirebaseAuth.instance;
   @override
@@ -128,8 +149,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: Themes.light,
       darkTheme: Themes.dark,
-      themeMode: ThemeService().theme,
-      home: auth.currentUser == null ? const LoginScreen() : const HomeScreen(),
+      themeMode: ThemeMode.system,
+      home: auth.currentUser == null ? const LoginScreen() : HomeScreen(),
     );
   }
 }

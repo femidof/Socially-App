@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>644140426285-porkbdcpjtj045sko5no5anrf14t8sae.apps.googleusercontent.com</string>
+	<string>644140426285-p16d0rtpf4rum8f9fje80nd3fm5qp5u4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.644140426285-porkbdcpjtj045sko5no5anrf14t8sae</string>
+	<string>com.googleusercontent.apps.644140426285-p16d0rtpf4rum8f9fje80nd3fm5qp5u4</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>644140426285-1l1dfe4mv2lib1duf6j5qb339qb68in3.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:644140426285:ios:bc19b16d462b7800b6c4a4</string>
+	<string>1:644140426285:ios:8e43a392a3e4d52cb6c4a4</string>
 	<key>DATABASE_URL</key>
 	<string>https://socially-f2c81.firebaseio.com</string>
 </dict>

@@ -13,7 +13,7 @@ class Wrapper extends StatelessWidget {
     // return
     // AuthService().handleAuth();
     // } else {
-    return const HomeScreen();
+    return HomeScreen();
     // }
     // return Authenticate();
   }

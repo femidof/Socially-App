@@ -72,8 +72,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     if (value.user != null) {
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen()),
+                          MaterialPageRoute(builder: (context) => HomeScreen()),
                           (route) => false);
                     }
                   });
@@ -100,7 +99,7 @@ class _OTPScreenState extends State<OTPScreen> {
             if (value.user != null) {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(builder: (context) => HomeScreen()),
                   (route) => false);
             }
           });
