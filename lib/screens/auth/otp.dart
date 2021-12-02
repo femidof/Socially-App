@@ -1,18 +1,24 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pin_put/pin_put.dart';
-// import 'package:phone_auth_project/home.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
 import '../home.dart';
 
 class OTPScreen extends StatefulWidget {
-  final String phone;
-  const OTPScreen(this.phone, {Key? key}) : super(key: key);
+  final Map<String, String> map;
+  // final String phone;
+  const OTPScreen(this.map, {Key? key}) : super(key: key);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
 
 class _OTPScreenState extends State<OTPScreen> {
+  FirebaseStorage _storage = FirebaseStorage.instance;
   final GlobalKey<ScaffoldState> _scaffoldkey = GlobalKey<ScaffoldState>();
   String? _verificationCode;
   final TextEditingController _pinPutController = TextEditingController();
@@ -42,7 +48,7 @@ class _OTPScreenState extends State<OTPScreen> {
             margin: const EdgeInsets.only(top: 40),
             child: Center(
               child: Text(
-                'Verify ${widget.phone}',
+                'Verify ${widget.map['phone']}',
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 26,
@@ -70,7 +76,30 @@ class _OTPScreenState extends State<OTPScreen> {
                           verificationId: _verificationCode!, smsCode: pin))
                       .then((value) async {
                     if (value.user != null) {
-                      Navigator.pushAndRemoveUntil(
+                      String? imageUrl;
+                      // split imageUrl by "/"
+                      var imgUrlSplit = widget.map["imageUrl"]!.split("/");
+
+                      // TODO: Upload user details to firebase
+                      var pathReference = _storage.ref(
+                          'images/profile/${value.user!.uid}/${imgUrlSplit.last}');
+                      var uploadTask = pathReference
+                          .putFile(File(widget.map["imageUrl"] as String));
+                      imageUrl = await uploadTask.then((res) async {
+                        return await res.ref.getDownloadURL();
+                      });
+                      await FirebaseChatCore.instance.createUserInFirestore(
+                        types.User(
+                          firstName: widget.map["firstname"],
+                          id: value.user!.uid,
+                          imageUrl: imageUrl,
+                          lastName: widget.map["lastname"],
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Welcome')));
+
+                      await Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(builder: (context) => HomeScreen()),
                           (route) => false);
@@ -91,7 +120,7 @@ class _OTPScreenState extends State<OTPScreen> {
 
   _verifyPhone() async {
     await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: widget.phone,
+        phoneNumber: widget.map["phone"] as String,
         verificationCompleted: (PhoneAuthCredential credential) async {
           await FirebaseAuth.instance
               .signInWithCredential(credential)

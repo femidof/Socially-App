@@ -9,148 +9,77 @@ import 'package:otp_text_field/style.dart';
 import 'package:socially/screens/auth/login.dart';
 import 'package:socially/screens/home.dart';
 import 'package:socially/shared/theme.dart';
-// import 'package:socially/shared/universal_variables.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-
-// import 'services/theme_service.dart';
-// import 'demo/rooms.dart';
-// import 'package:google_fonts/google_fonts.dart';
-
-// import 'shared/universal_variables.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   await GetStorage.init();
-  // runApp(const BaseStart());
   runApp(MyApp());
 }
 
-// class BaseStart extends StatelessWidget {
-//   const BaseStart({Key? key}) : super(key: key);
-
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Flutter Demo',
-//       themeMode: ThemeMode.system,
-//       darkTheme: ThemeData(
-//         colorScheme: ColorScheme.fromSwatch(
-//             // brightness: Brightness.dark,
-//             ),
-//         primaryColor: UniversalVariables.gradientColorEndhmm,
-
-//         /* dark theme settings */
-//       ),
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//         primaryColor: UniversalVariables.mainColor,
-//         textTheme: GoogleFonts.montserratTextTheme(),
-//       ),
-//       home: const MyHomePage(title: 'Flutter Demo Home Page'),
-//     );
-//   }
-// }
-
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-//   final String title;
-
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
-
-//   void _incrementCounter() {
-//     setState(() {
-//       _counter++;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(widget.title),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             const Text(
-//               'You have pushed the button this many times:',
-//             ),
-//             Text(
-//               '$_counter',
-//               style: Theme.of(context).textTheme.headline4,
-//             ),
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: _incrementCounter,
-//         tooltip: 'Increment',
-//         child: const Icon(Icons.add),
-//       ),
-//     );
-//   }
-// }
-
-// TODO DEMO
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Firebase Chat',
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//         visualDensity: VisualDensity.adaptivePlatformDensity,
-//       ),
-//       home: const RoomsPage(),
-//     );
-//   }
-// }
-
-// ThemeData _darkTheme = ThemeData(
-//     accentColor: Colors.red,
-//     brightness: Brightness.dark,
-//     primaryColor: Colors.amber,
-//     buttonTheme: ButtonThemeData(
-//       buttonColor: Colors.amber,
-//       disabledColor: Colors.grey,
-//     ));
-
-// ThemeData _lightTheme = ThemeData(
-//     accentColor: Colors.pink,
-//     brightness: Brightness.light,
-//     primaryColor: Colors.blue,
-//     buttonTheme: ButtonThemeData(
-//       buttonColor: Colors.blue,
-//       disabledColor: Colors.grey,
-//     ));
-
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   MyApp({Key? key}) : super(key: key) {
     Themees().getThemeStatus();
   }
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final Future<FirebaseApp> _initFirebaseSdk = Firebase.initializeApp();
+  // final FirebaseAuth auth = FirebaseAuth.instance;
+  final _navigatorKey = new GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      navigatorKey: _navigatorKey,
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Socially',
       theme: Themes.light,
       darkTheme: Themes.dark,
       themeMode: ThemeMode.system,
-      home: auth.currentUser == null ? const LoginScreen() : HomeScreen(),
+      home: FutureBuilder(
+        future: _initFirebaseSdk,
+        builder: (_, snapshot) {
+          // builder
+          if (snapshot.hasError) return ErrorScreen();
+
+          if (snapshot.connectionState == ConnectionState.done) {
+            FirebaseAuth.instance.authStateChanges().listen((User? user) {
+              if (user == null) {
+                _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(
+                  builder: (context) {
+                    return LoginScreen();
+                  },
+                ));
+              } else {
+                _navigatorKey.currentState!.pushReplacement(MaterialPageRoute(
+                  builder: (context) {
+                    return HomeScreen();
+                  },
+                ));
+              }
+            });
+          }
+          // builder
+          return CircularProgressIndicator();
+        },
+      ),
+    );
+  }
+}
+
+class ErrorScreen extends StatelessWidget {
+  const ErrorScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Text("Error In Initializing Your app, Please Contact Support"),
+      ),
     );
   }
 }

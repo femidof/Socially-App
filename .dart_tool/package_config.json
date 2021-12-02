@@ -56,6 +56,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "cross_file",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "crypto",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/crypto-3.0.1",
       "packageUri": "lib/",
@@ -112,6 +118,30 @@
     {
       "name": "file_picker",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/file_picker-4.2.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "firebase",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase-9.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "firebase_analytics",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics-8.3.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "firebase_analytics_platform_interface",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics_platform_interface-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "firebase_analytics_web",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/firebase_analytics_web-0.3.0+1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -206,12 +236,6 @@
       "languageVersion": "2.12"
     },
     {
-      "name": "flutter_lints",
-      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_lints-1.0.4",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
       "name": "flutter_plugin_android_lifecycle",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/flutter_plugin_android_lifecycle-2.0.5",
       "packageUri": "lib/",
@@ -278,6 +302,24 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "image_picker",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker-0.8.4+4",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
+      "name": "image_picker_for_web",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_for_web-2.1.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "image_picker_platform_interface",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/image_picker_platform_interface-2.4.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "intl",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/intl-0.17.0",
       "packageUri": "lib/",
@@ -304,12 +346,6 @@
     {
       "name": "linkify",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/linkify-4.1.0",
-      "packageUri": "lib/",
-      "languageVersion": "2.12"
-    },
-    {
-      "name": "lints",
-      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/lints-1.0.1",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -470,6 +506,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "shimmer",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/shimmer-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "sky_engine",
       "rootUri": "file:///Users/dof/Developer/flutter/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
@@ -590,7 +632,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-11-29T16:19:47.132246Z",
+  "generated": "2021-12-02T15:12:05.143019Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

@@ -11,7 +11,7 @@ class Themes {
     primaryColor: Colors.amber,
     // buttonColor: Colors.blue,
     buttonTheme: ButtonThemeData(
-      buttonColor: Colors.blue,
+      buttonColor: Colors.yellow,
       disabledColor: Colors.grey,
     ),
   );
@@ -21,7 +21,7 @@ class Themes {
     buttonColor: Colors.red,
     accentColor: Colors.pink,
     brightness: Brightness.light,
-    primaryColor: Colors.blue,
+    primaryColor: Colors.purple[900],
     buttonTheme: ButtonThemeData(
       buttonColor: Colors.amber,
       disabledColor: Colors.grey,
