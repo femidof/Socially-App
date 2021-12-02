@@ -270,6 +270,14 @@ path_provider_windows
 2.12
 file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.4/
 file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/path_provider_windows-2.0.4/lib/
+permission_handler
+2.12
+file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler-8.3.0/
+file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler-8.3.0/lib/
+permission_handler_platform_interface
+2.14
+file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_platform_interface-3.7.0/
+file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_platform_interface-3.7.0/lib/
 photo_view
 2.12
 file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/photo_view-0.13.0/
@@ -342,6 +350,10 @@ string_scanner
 2.12
 file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/
 file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/string_scanner-1.1.0/lib/
+super_easy_permissions
+2.12
+file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/super_easy_permissions-0.1.1/
+file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/super_easy_permissions-0.1.1/lib/
 term_glyph
 2.12
 file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0/

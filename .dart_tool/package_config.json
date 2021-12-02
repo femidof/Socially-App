@@ -428,6 +428,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "permission_handler",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler-8.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "permission_handler_platform_interface",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/permission_handler_platform_interface-3.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "photo_view",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/photo_view-0.13.0",
       "packageUri": "lib/",
@@ -542,6 +554,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "super_easy_permissions",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/super_easy_permissions-0.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "term_glyph",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/term_glyph-1.2.0",
       "packageUri": "lib/",
@@ -632,7 +650,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-12-02T15:12:05.143019Z",
+  "generated": "2021-12-02T17:35:52.408234Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

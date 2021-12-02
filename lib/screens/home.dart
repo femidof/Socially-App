@@ -1,16 +1,70 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:socially/screens/chat_screen.dart';
-import 'package:socially/services/theme_service.dart';
-import 'package:socially/shared/theme.dart';
+import 'package:super_easy_permissions/super_easy_permissions.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
-  final RxBool _isLightTheme = false.obs;
+
+  Future<bool> checkForPermission() async {
+    if (await SuperEasyPermissions.isGranted(Permissions.camera) &&
+        await SuperEasyPermissions.isGranted(Permissions.contacts)) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> askForPermission() async {
+    if (await SuperEasyPermissions.askPermission(Permissions.camera) &&
+        await SuperEasyPermissions.askPermission(Permissions.contacts)) {
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ChatScreen();
+    return FutureBuilder(
+        future: checkForPermission(),
+        builder: (context, snapshot) {
+          if (snapshot.data == true) {
+            // Permission is granted, do something
+            return ChatScreen();
+          } else if (snapshot.data == false) {
+            return FutureBuilder(
+                future: askForPermission(),
+                builder: (context, snapshot) {
+                  if (snapshot.data == true) {
+                    return ChatScreen();
+                  } else if (snapshot.data == false) {
+                    return Scaffold(
+                      body: Center(
+                        child: GestureDetector(
+                            onTap: () async {
+                              print("ask");
+                              askForPermission();
+                            },
+                            child: Text("Failed to accept permission")),
+                      ),
+                    );
+                  }
+                  return Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                });
+          } else
+            return Scaffold(
+              body: Center(
+                child: GestureDetector(
+                    onTap: () async {
+                      await askForPermission();
+                    },
+                    child:
+                        Text("Problem with Permissions, tap on me to retry")),
+              ),
+            );
+        });
     // Scaffold(
     //   body: Center(
     //       child: Column(

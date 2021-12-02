@@ -46,7 +46,7 @@ dependencies:
   intl_phone_field: ^2.0.0
   otp_text_field: ^1.1.1
   get: ^4.3.8 
-  # permission_handler: ^8.2.6
+  permission_handler: ^8.3.0
   # provider: ^6.0.1
   shimmer: ^2.0.0
   file_picker: ^4.2.4
@@ -56,6 +56,7 @@ dependencies:
   pinput: ^1.2.0
   get_storage: ^2.0.3
   shared_preferences: any 
+  super_easy_permissions: ^0.1.1
 
 dev_dependencies:
   # flutter_lints: ^1.0.0
