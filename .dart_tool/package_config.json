@@ -56,6 +56,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "contacts_service",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/contacts_service-0.6.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "cross_file",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/cross_file-0.3.2",
       "packageUri": "lib/",
@@ -470,6 +476,12 @@
       "languageVersion": "2.14"
     },
     {
+      "name": "quiver",
+      "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/quiver-3.0.1+1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "shared_preferences",
       "rootUri": "file:///Users/dof/Developer/flutter/.pub-cache/hosted/pub.dartlang.org/shared_preferences-2.0.9",
       "packageUri": "lib/",
@@ -650,7 +662,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2021-12-02T17:35:52.408234Z",
+  "generated": "2021-12-02T17:56:33.027934Z",
   "generator": "pub",
   "generatorVersion": "2.14.4"
 }

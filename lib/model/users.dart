@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class User {
+class UserModel {
   late String uid;
   late String displayName;
   late String phoneNumber;
@@ -11,7 +11,7 @@ class User {
   late int state;
   late String profilePhoto;
 
-  User({
+  UserModel({
     required this.uid,
     required this.displayName,
     required this.phoneNumber,
@@ -23,7 +23,7 @@ class User {
     required this.profilePhoto,
   });
 
-  Map toMap(User user) {
+  Map toMap(UserModel user) {
     var data = Map<String, dynamic>();
     data['uid'] = user.uid;
     data['displayName'] = user.displayName;
@@ -37,7 +37,7 @@ class User {
     return data;
   }
 
-  User.fromMap(Map<String, dynamic> mapData) {
+  UserModel.fromMap(Map<String, dynamic> mapData) {
     this.uid = mapData['uid'];
     this.displayName = mapData['displayName'];
     this.phoneNumber = mapData['phoneNumber'];
@@ -49,8 +49,8 @@ class User {
     this.profilePhoto = mapData['profilePhoto'];
   }
 
-  factory User.fromDocument(DocumentSnapshot doc) {
-    return User(
+  factory UserModel.fromDocument(DocumentSnapshot doc) {
+    return UserModel(
       uid: doc['id'],
       email: doc['email'],
       displayName: doc['displayName'],

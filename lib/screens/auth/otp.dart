@@ -90,6 +90,9 @@ class _OTPScreenState extends State<OTPScreen> {
                       });
                       await FirebaseChatCore.instance.createUserInFirestore(
                         types.User(
+                          metadata: {
+                            "phoneNumber": "${widget.map['phone']}",
+                          },
                           firstName: widget.map["firstname"],
                           id: value.user!.uid,
                           imageUrl: imageUrl,

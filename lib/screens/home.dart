@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:socially/screens/chat_screen.dart';
+import 'package:socially/screens/home_launch_screen.dart';
 import 'package:super_easy_permissions/super_easy_permissions.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -28,13 +28,13 @@ class HomeScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.data == true) {
             // Permission is granted, do something
-            return ChatScreen();
+            return HomeLaunchScreen();
           } else if (snapshot.data == false) {
             return FutureBuilder(
                 future: askForPermission(),
                 builder: (context, snapshot) {
                   if (snapshot.data == true) {
-                    return ChatScreen();
+                    return HomeLaunchScreen();
                   } else if (snapshot.data == false) {
                     return Scaffold(
                       body: Center(
