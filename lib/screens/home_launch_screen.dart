@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:socially/demo/users.dart';
+import 'package:socially/screens/chat_list_screen.dart';
 import 'package:socially/shared/theme.dart';
 import 'package:socially/shared/universal_variables.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -36,6 +38,11 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(() => UsersPage());
+        },
+      ),
       bottomNavigationBar: CupertinoTabBar(
         // border: Border(
         //     top: BorderSide(color: context.theme.scaffoldBackgroundColor)),
@@ -77,7 +84,7 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
         ],
       ),
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1,
         backgroundColor: context.theme.scaffoldBackgroundColor,
         foregroundColor: UniversalVariables.lightBlueColor,
         title: GestureDetector(
@@ -157,29 +164,35 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          children: [
-            StreamBuilder(
-              stream: Stream.fromFuture(getLocalContacts()),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Text("${snapshot.data}     ");
-                  // return StreamBuilder(
-                  //   stream: Stream.fromFuture(),
-                  //   builder: (context, snapshot) {
-                  //     return Text("${snapshot.data}     ");
-                  //   },
-                  // );
-                } else
-                  return Text("Error no data contact ${snapshot.error}");
-              },
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () {},
+              child: Text(
+                "New Chat",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.right,
+              ),
             ),
-            Text("Body"),
-          ],
-        ),
+          ),
+          Divider(
+            color: UniversalVariables.separatorColor,
+            height: 0.5,
+          ),
+          ChatListScreen(),
+        ],
       ),
-    );
+    )
+        //     ],
+        //   ),
+        // )
+        ;
   }
 }
 

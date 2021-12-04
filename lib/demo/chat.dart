@@ -203,7 +203,6 @@ class _ChatPageState extends State<ChatPage> {
               return SafeArea(
                 bottom: false,
                 child: Chat(
-                  // bubbleBuilder: ,
                   theme: DefaultChatTheme(
                     backgroundColor: Colors.purple[900] as Color,
                     inputBackgroundColor: Colors.purple[900] as Color,
