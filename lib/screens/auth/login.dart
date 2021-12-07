@@ -69,8 +69,16 @@ class _LoginScreenState extends State<LoginScreen> {
                               contentPadding:
                                   EdgeInsets.only(bottom: 7.0, left: 25),
                               onTap: () async {
-                                await _picker.pickImage(
+                                imageXFile = await _picker.pickImage(
                                     source: ImageSource.camera);
+                                Get.back();
+                                if (imageXFile != null) {
+                                  uploadedImage = true;
+                                }
+
+                                imagePath = imageXFile!.path;
+                                print("Image: $imagePath");
+                                setState(() {});
                               },
                               leading: Icon(Icons.camera),
                               title: Text("Camera"),

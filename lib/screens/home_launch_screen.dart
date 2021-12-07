@@ -1,11 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:socially/demo/users.dart';
 import 'package:socially/screens/chat_list_screen.dart';
+import 'package:socially/screens/explore/explore.dart';
 import 'package:socially/shared/theme.dart';
 import 'package:socially/shared/universal_variables.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -20,8 +22,24 @@ class HomeLaunchScreen extends StatefulWidget {
 }
 
 class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
-  // FirebaseAuth _auth = FirebaseAuth.instance;
+  User? _user;
+  int _currentIndex = 0;
+  final List _pageChildren = [
+    ChatScreenChild(),
+    ChatScreenChild(),
+    ExploreScreenChild(),
+    ExploreScreenChild(),
+    ProfileChildScreen(
+        // user: _user,
+        ),
+  ];
   List<Contact>? contacts;
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   Future<List<Contact>?> getLocalContacts() async {
     contacts = await ContactsService.getContacts();
@@ -36,14 +54,18 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
   getAppUserContact() async {}
 
   @override
+  void initState() {
+    // TODO: implement initState
+    _user = FirebaseChatCore.instance.firebaseUser;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Get.to(() => UsersPage());
-        },
-      ),
       bottomNavigationBar: CupertinoTabBar(
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
         // border: Border(
         //     top: BorderSide(color: context.theme.scaffoldBackgroundColor)),
         backgroundColor: context.theme.scaffoldBackgroundColor,
@@ -54,6 +76,14 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
             activeIcon: Icon(
               Icons.bubble_chart,
               color: Colors.blueAccent,
+            ),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.explore_sharp),
+            backgroundColor: Colors.purple,
+            activeIcon: Icon(
+              Icons.explore_sharp,
+              color: Colors.purple,
             ),
           ),
           BottomNavigationBarItem(
@@ -83,9 +113,24 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
           ),
         ],
       ),
+      body: _pageChildren[_currentIndex],
+    );
+  }
+}
+
+class ChatScreenChild extends StatelessWidget {
+  const ChatScreenChild({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
       appBar: AppBar(
         elevation: 1,
-        backgroundColor: context.theme.scaffoldBackgroundColor,
+        backgroundColor:
+            //  Color(0xff120827),
+            context.theme.scaffoldBackgroundColor,
         foregroundColor: UniversalVariables.lightBlueColor,
         title: GestureDetector(
           child: Shimmer.fromColors(
@@ -116,50 +161,6 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
                 Themees().saveThemeStatus();
               },
             ),
-            // FlutterSwitch(
-            //   width: 100.0,
-            //   height: 55.0,
-            //   toggleSize: 45.0,
-            //   value: ISLIGHT.value,
-            //   borderRadius: 30.0,
-            //   padding: 2.0,
-            //   activeToggleColor: Color(0xFF6E40C9),
-            //   inactiveToggleColor: Color(0xFF2F363D),
-            //   activeSwitchBorder: Border.all(
-            //     color: Color(0xFF3C1E70),
-            //     width: 6.0,
-            //   ),
-            //   inactiveSwitchBorder: Border.all(
-            //     color: Color(0xFFD1D5DA),
-            //     width: 6.0,
-            //   ),
-            //   activeColor: Color(0xFF271052),
-            //   inactiveColor: Colors.white,
-            //   activeIcon: Icon(
-            //     Icons.nightlight_round,
-            //     color: Color(0xFFF8E3A1),
-            //   ),
-            //   inactiveIcon: Icon(
-            //     Icons.wb_sunny,
-            //     color: Color(0xFFFFDF5D),
-            //   ),
-            //   onToggle: (val) {
-            //     setState(() {
-            //       ISLIGHT.value = val;
-
-            //       if (val) {
-            //         // _textColor = Colors.white;
-            //         // _appBarColor = Color.fromRGBO(22, 27, 34, 1);
-            //         // _scaffoldBgcolor = Color(0xFF0D1117);
-            //       } else {
-            //         // _textColor = Colors.black;
-            //         // _appBarColor = Color.fromRGBO(36, 41, 46, 1);
-            //         // _scaffoldBgcolor = Colors.white;
-            //       }
-            //     });
-            //   },
-            // ),
-
             false.obs,
           ),
         ],
@@ -171,7 +172,9 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => UsersPage());
+              },
               child: Text(
                 "New Chat",
                 style: TextStyle(
@@ -188,11 +191,29 @@ class _HomeLaunchScreenState extends State<HomeLaunchScreen> {
           ChatListScreen(),
         ],
       ),
-    )
-        //     ],
-        //   ),
-        // )
-        ;
+    );
+  }
+}
+
+class ProfileChildScreen extends StatelessWidget {
+  const ProfileChildScreen({Key? key}) : super(key: key);
+  // final User? user;
+
+  @override
+  Widget build(BuildContext context) {
+    User? _user = FirebaseChatCore.instance.firebaseUser;
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          "Profile",
+          style: GoogleFonts.pacifico(
+              fontSize: 20, color: context.textTheme.bodyText1!.color),
+        ),
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+      ),
+    );
   }
 }
 

@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
@@ -189,7 +190,9 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle.light,
+        elevation: 10,
+        backgroundColor: context.theme.scaffoldBackgroundColor,
+        // systemOverlayStyle: SystemUiOverlayStyle.light,
         title: const Text('Chat'),
       ),
       body: StreamBuilder<types.Room>(
