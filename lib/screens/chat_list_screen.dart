@@ -25,7 +25,6 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   Widget _buildAvatar(types.Room room) {
     var color = Colors.transparent;
-
     if (room.type == types.RoomType.direct) {
       try {
         final otherUser = room.users.firstWhere(
@@ -124,16 +123,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
                             SizedBox(
                               height: MediaQuery.of(context).size.height * 0.01,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                right: 20,
-                              ),
-                              child: Text(
-                                'Last Message',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontStyle: FontStyle.italic,
-                                ),
+                            Text(
+                              '${room.lastMessages!.first.toJson()["text"]}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontStyle: FontStyle.italic,
                               ),
                             ),
                           ],

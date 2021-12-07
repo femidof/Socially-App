@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
@@ -190,10 +192,57 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 10,
+        iconTheme: context.theme.iconTheme,
+        centerTitle: true,
+        elevation: 0,
         backgroundColor: context.theme.scaffoldBackgroundColor,
-        // systemOverlayStyle: SystemUiOverlayStyle.light,
-        title: const Text('Chat'),
+        title: Padding(
+          padding: const EdgeInsets.only(right: 70),
+          child: Wrap(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(widget.room.imageUrl as String),
+              ),
+              SizedBox(width: 10),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 8,
+                  right: 0,
+                  left: 8,
+                ),
+                child: Text(
+                  '${widget.room.name}',
+                  style: GoogleFonts.lato(
+                      fontSize: 20, color: context.textTheme.bodyText1!.color),
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 15,
+              right: 30,
+            ),
+            child: GestureDetector(
+                onTap: () {
+                  print("Video Call");
+                },
+                child: FaIcon(FontAwesomeIcons.video)),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 15,
+              right: 17,
+            ),
+            child: GestureDetector(
+                onTap: () {
+                  print("Audio Call");
+                },
+                child: FaIcon(FontAwesomeIcons.phone)),
+          ),
+        ],
       ),
       body: StreamBuilder<types.Room>(
         initialData: widget.room,
@@ -206,6 +255,7 @@ class _ChatPageState extends State<ChatPage> {
               return SafeArea(
                 bottom: false,
                 child: Chat(
+                  // showUserAvatars: true,
                   theme: DefaultChatTheme(
                     backgroundColor: Colors.purple[900] as Color,
                     inputBackgroundColor: Colors.purple[900] as Color,

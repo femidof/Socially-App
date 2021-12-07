@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -9,6 +10,17 @@ import 'package:otp_text_field/style.dart';
 import 'package:socially/screens/auth/login.dart';
 import 'package:socially/screens/home.dart';
 import 'package:socially/shared/theme.dart';
+
+const AndroidNotificationChannel channel = AndroidNotificationChannel(
+    "high_importance_channel", //id
+    "High Importance Notifications", //title
+    description:
+        "This channel is used for important notifications.", // description
+    importance: Importance.high,
+    playSound: true);
+
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

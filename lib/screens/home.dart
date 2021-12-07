@@ -49,6 +49,7 @@ class HomeScreen extends StatelessWidget {
                                   .invokeMethod('TextInput.hide');
                               print("askPls");
                               await askForPermission();
+                              await mainPermissionasker();
                             },
                             child: Text(
                                 "Failed to accept permission, Tap to try Again")),
@@ -67,6 +68,7 @@ class HomeScreen extends StatelessWidget {
                 child: GestureDetector(
                     onTap: () async {
                       await askForPermission();
+                      await mainPermissionasker();
                     },
                     child:
                         Text("Problem with Permissions, tap on me to retry")),
@@ -120,7 +122,7 @@ class HomeScreen extends StatelessWidget {
       print("Accepted Thank you");
     }
     if (await Permission.contacts.isPermanentlyDenied) {
-      // The user opted to never again see the permission request dialog for this
+      // The user opted to never again s ee the permission request dialog for this
       // app. The only way to change the permission's status now is to let the
       // user manually enable it in the system settings.
       print("Next level Open settings to allow");
