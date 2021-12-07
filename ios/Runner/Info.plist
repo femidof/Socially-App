@@ -8,6 +8,8 @@
 	<string>For calls and sending voice messages</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>To access photo library</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app requires contacts access to function properly for interaction with other users</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To access photo library</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -37,8 +39,6 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>NSContactsUsageDescription</key>  
-	<string>This app requires contacts access to function properly.</string> 
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
