@@ -126,7 +126,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(
-                                right: 30,
+                                right: 20,
                               ),
                               child: Text(
                                 'Last Message',
@@ -199,22 +199,36 @@ class ChatScreenChild extends StatelessWidget {
         ],
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        // crossAxisAlignment: CrossAxisAlignment.,
         mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: GestureDetector(
-              onTap: () {
-                Get.to(() => UsersPage());
-              },
-              child: Text(
-                "New Chat",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  child: Text(
+                    "New Group Chat",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
                 ),
-                textAlign: TextAlign.right,
-              ),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => UsersPage());
+                  },
+                  child: Text(
+                    "New Chat",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
+                ),
+              ],
             ),
           ),
           Divider(
