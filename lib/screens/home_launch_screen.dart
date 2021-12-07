@@ -4,13 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shimmer/shimmer.dart';
-import 'package:socially/demo/users.dart';
 import 'package:socially/screens/chat_list_screen.dart';
 import 'package:socially/screens/explore/explore.dart';
 import 'package:socially/screens/notification/notification.dart';
-import 'package:socially/shared/theme.dart';
-import 'package:socially/shared/universal_variables.dart';
 import 'package:contacts_service/contacts_service.dart';
 
 class HomeLaunchScreen extends StatefulWidget {
