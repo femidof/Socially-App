@@ -2,8 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:get/get.dart';
+import 'package:get/get_utils/src/extensions/context_extensions.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:socially/demo/chat.dart';
+import 'package:socially/demo/users.dart';
 import 'package:socially/demo/util.dart';
+import 'package:socially/screens/home_launch_screen.dart';
+import 'package:socially/shared/theme.dart';
 import 'package:socially/shared/universal_variables.dart';
 
 class ChatListScreen extends StatefulWidget {
@@ -139,6 +146,83 @@ class _ChatListScreenState extends State<ChatListScreen> {
             },
           );
         },
+      ),
+    );
+  }
+}
+
+class ChatScreenChild extends StatelessWidget {
+  const ChatScreenChild({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 1,
+        backgroundColor:
+            //  Color(0xff120827),
+            context.theme.scaffoldBackgroundColor,
+        foregroundColor: UniversalVariables.lightBlueColor,
+        title: GestureDetector(
+          child: Shimmer.fromColors(
+            child: Text(
+              "Socially",
+              style: GoogleFonts.pacifico(
+                fontSize: 24,
+              ),
+            ),
+            baseColor: UniversalVariables.gradientColorEnd,
+            highlightColor: UniversalVariables.gradientColorStart,
+          ),
+          onTap: () {
+            Get.to(() => TestPage());
+          },
+        ),
+        centerTitle: true,
+        actions: [
+          ObxValue(
+            (data) => Switch(
+              activeColor: Colors.blue,
+              value: Themees.isLightTheme.value,
+              onChanged: (val) {
+                Themees.isLightTheme.value = val;
+                Get.changeThemeMode(
+                  Themees.isLightTheme.value ? ThemeMode.light : ThemeMode.dark,
+                );
+                Themees().saveThemeStatus();
+              },
+            ),
+            false.obs,
+          ),
+        ],
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () {
+                Get.to(() => UsersPage());
+              },
+              child: Text(
+                "New Chat",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.right,
+              ),
+            ),
+          ),
+          Divider(
+            color: UniversalVariables.separatorColor,
+            height: 0.5,
+          ),
+          ChatListScreen(),
+        ],
       ),
     );
   }

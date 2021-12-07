@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
 import 'package:socially/screens/home_launch_screen.dart';
 import 'package:super_easy_permissions/super_easy_permissions.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -9,22 +8,22 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   Future<bool> checkForPermission() async {
-    if (await SuperEasyPermissions.isGranted(Permissions.camera) &&
+    if (
+        // await SuperEasyPermissions.isGranted(Permissions.camera) &&
         await SuperEasyPermissions.isGranted(Permissions.contacts)) {
+      print("Allowed");
       return true;
     }
+    print("Rejected");
     return false;
   }
 
   Future<bool> askForPermission() async {
-    // if (
-    // await SuperEasyPermissions.askPermission(Permissions.camera
-    // ) &&
-    return await SuperEasyPermissions.askPermission(Permissions.contacts);
-    //  ) {
-    // return true;
-    // }
-    // return false;
+    if (await SuperEasyPermissions.askPermission(Permissions.camera) &&
+        await SuperEasyPermissions.askPermission(Permissions.contacts)) {
+      return true;
+    }
+    return false;
   }
 
   @override
@@ -50,9 +49,9 @@ class HomeScreen extends StatelessWidget {
                                   .invokeMethod('TextInput.hide');
                               print("askPls");
                               await askForPermission();
-                              await mainPermissionasker();
                             },
-                            child: Text("Failed to accept permission")),
+                            child: Text(
+                                "Failed to accept permission, Tap to try Again")),
                       ),
                     );
                   }
@@ -106,8 +105,9 @@ class HomeScreen extends StatelessWidget {
   }
 
   mainPermissionasker() async {
-    var status = Permission.contacts;
-    if (await status.isDenied) {
+    var statusContact = Permission.contacts;
+    var statusCamera = Permission.camera;
+    if (await statusContact.isDenied) {
       // We didn't ask for permission yet or the permission has been denied before but not permanently.
       print("Rejected Please try again");
       openAppSettings();
@@ -123,7 +123,7 @@ class HomeScreen extends StatelessWidget {
       // The user opted to never again see the permission request dialog for this
       // app. The only way to change the permission's status now is to let the
       // user manually enable it in the system settings.
-      print("Next level");
+      print("Next level Open settings to allow");
       openAppSettings();
     }
   }

@@ -30,20 +30,20 @@ class Themes {
 }
 
 class Themees {
-  RxBool _isLightTheme = false.obs;
+  static RxBool isLightTheme = true.obs;
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   saveThemeStatus() async {
     SharedPreferences pref = await _prefs;
-    pref.setBool('theme', _isLightTheme.value);
+    pref.setBool('theme', isLightTheme.value);
   }
 
   getThemeStatus() async {
     var _isLight = _prefs.then((SharedPreferences prefs) {
       return prefs.getBool('theme') != null ? prefs.getBool('theme') : true;
     }).obs;
-    _isLightTheme.value = (await _isLight.value)!;
-    Get.changeThemeMode(_isLightTheme.value ? ThemeMode.light : ThemeMode.dark);
+    isLightTheme.value = (await _isLight.value)!;
+    Get.changeThemeMode(isLightTheme.value ? ThemeMode.light : ThemeMode.dark);
   }
 }

@@ -14,6 +14,7 @@ class _ExploreScreenChildState extends State<ExploreScreenChild> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 1,
         centerTitle: true,
         title: Text(
           "Explore",
@@ -23,6 +24,7 @@ class _ExploreScreenChildState extends State<ExploreScreenChild> {
         backgroundColor: context.theme.scaffoldBackgroundColor,
       ),
       body: ListView(
+        physics: ClampingScrollPhysics(),
         children: [
           buildSearchField(context),
           buildNoContent(),
@@ -35,14 +37,14 @@ class _ExploreScreenChildState extends State<ExploreScreenChild> {
 buildNoContent() {
   return Container(
     child: Center(
-      child: ListView(),
+      child: Container(),
     ),
   );
 }
 
 buildSearchField(BuildContext c) {
   return AppBar(
-    elevation: 0,
+    elevation: 1,
     backgroundColor: c.theme.scaffoldBackgroundColor,
     title: TextFormField(
       decoration: InputDecoration(
@@ -50,6 +52,7 @@ buildSearchField(BuildContext c) {
         filled: true,
         prefixIcon: Icon(
           Icons.account_box,
+          color: Colors.blueGrey,
           size: 28,
         ),
         suffixIcon: IconButton(
