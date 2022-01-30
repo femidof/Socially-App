@@ -25,6 +25,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   Widget _buildAvatar(types.Room room) {
     var color = Colors.transparent;
+
+    // print("tryingn to print room ID to see whats in there ${room.id}");
     if (room.type == types.RoomType.direct) {
       try {
         final otherUser = room.users.firstWhere(

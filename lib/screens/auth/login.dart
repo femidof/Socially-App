@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:socially/demo/giphy/giphy.dart';
 import 'package:socially/shared/universal_variables.dart';
 
 import 'otp.dart';
@@ -31,6 +32,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // appBar: AppBar(
+      //   title: GestureDetector(
+      //       onTap: () {
+      //         Get.to(() => GiphyWay());
+      //       },
+      //       child: Text("FOR GIPHY")),
+      // ),
       body: Form(
         key: _formKey,
         child: ListView(

@@ -338,6 +338,14 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - agora_rtc_engine (4.0.7):
+    - AgoraRtcEngine_iOS (= 3.5.0.3)
+    - Flutter
+  - agora_rtm (1.0.1):
+    - AgoraRtm_iOS (= 1.4.8)
+    - Flutter
+  - AgoraRtcEngine_iOS (3.5.0.3)
+  - AgoraRtm_iOS (1.4.8)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -469,6 +477,8 @@ PODS:
     - FirebaseCore (~> 8.0)
     - GTMSessionFetcher/Core (~> 1.5)
   - Flutter (1.0.0)
+  - flutter_local_notifications (0.0.1):
+    - Flutter
   - GoogleAppMeasurement (8.9.1):
     - GoogleAppMeasurement/AdIdSupport (= 8.9.1)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.6)
@@ -564,6 +574,8 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - agora_rtc_engine (from `.symlinks/plugins/agora_rtc_engine/ios`)
+  - agora_rtm (from `.symlinks/plugins/agora_rtm/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - contacts_service (from `.symlinks/plugins/contacts_service/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
@@ -572,6 +584,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_storage (from `.symlinks/plugins/firebase_storage/ios`)
   - Flutter (from `Flutter`)
+  - flutter_local_notifications (from `.symlinks/plugins/flutter_local_notifications/ios`)
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - open_file (from `.symlinks/plugins/open_file/ios`)
   - path_provider_ios (from `.symlinks/plugins/path_provider_ios/ios`)
@@ -583,6 +596,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
+    - AgoraRtcEngine_iOS
+    - AgoraRtm_iOS
     - BoringSSL-GRPC
     - DKImagePickerController
     - DKPhotoGallery
@@ -607,6 +622,10 @@ SPEC REPOS:
     - SwiftyGif
 
 EXTERNAL SOURCES:
+  agora_rtc_engine:
+    :path: ".symlinks/plugins/agora_rtc_engine/ios"
+  agora_rtm:
+    :path: ".symlinks/plugins/agora_rtm/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   contacts_service:
@@ -623,6 +642,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/firebase_storage/ios"
   Flutter:
     :path: Flutter
+  flutter_local_notifications:
+    :path: ".symlinks/plugins/flutter_local_notifications/ios"
   image_picker:
     :path: ".symlinks/plugins/image_picker/ios"
   open_file:
@@ -640,6 +661,10 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  agora_rtc_engine: 0820b82b3a71a8fcaf8b27c000622e671349f0ba
+  agora_rtm: 9cd2f941f6b006f262b8871863a08f228ee4cf97
+  AgoraRtcEngine_iOS: ff8e085161ea98c917173783a899882f884dd9ef
+  AgoraRtm_iOS: 382a54763803dad098d3b31a2608ccd62972e00b
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   cloud_firestore: 0c744725c0d1544d77db2c8eb35ef919cb19a176
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
@@ -659,6 +684,7 @@ SPEC CHECKSUMS:
   FirebaseInstallations: caa7c8e0d3e2345b8829d2fa9ca1b4dfbf2fcc85
   FirebaseStorage: 452c98c31ccb40b819764bf3039426c4388d9939
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  flutter_local_notifications: 0c0b1ae97e741e1521e4c1629a459d04b9aec743
   GoogleAppMeasurement: 837649ad3987936c232f6717c5680216f6243d24
   GoogleDataTransport: 629c20a4d363167143f30ea78320d5a7eb8bd940
   GoogleUtilities: 684ee790a24f73ebb2d1d966e9711c203f2a4237

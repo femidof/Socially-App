@@ -7,6 +7,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/context_extensions.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +15,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:socially/demo/agora.dart';
 
 class ChatPage extends StatefulWidget {
   const ChatPage({
@@ -239,6 +241,8 @@ class _ChatPageState extends State<ChatPage> {
             child: GestureDetector(
                 onTap: () {
                   print("Audio Call");
+
+                  Get.to(() => AgoraSetup(room: widget.room));
                 },
                 child: FaIcon(FontAwesomeIcons.phone)),
           ),
